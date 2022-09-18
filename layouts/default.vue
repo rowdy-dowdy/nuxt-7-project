@@ -1,9 +1,8 @@
 <script lang="ts">
-
 </script>
 
 <template>
-  <div>
+  <div class="w-full h-full">
     <RootHeader />
     <slot />
   </div>

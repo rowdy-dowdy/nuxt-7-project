@@ -1,0 +1,1 @@
+<template>Messager</template>
