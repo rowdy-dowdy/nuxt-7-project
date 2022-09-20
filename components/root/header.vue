@@ -6,7 +6,7 @@ const menu = ref(data_menu)
 </script>
 
 <template>
-  <div class="fixed left-0 top-0 bottom-0 transition-all duration-300" :class="{'-translate-x-full': !show}">
+  <div class="fixed left-0 top-0 bottom-0 transition-all duration-300 z-[9999]" :class="{'-translate-x-full': !show}">
     <div class="relative h-full bg-gray-900 py-4 flex flex-col space-y-4 items-center z-10">
       <div class="flex-grow flex flex-col space-y-4 px-2 overflow-y-auto">
         <NuxtLink to="/" class="bg-purple-600 text-white rounded-lg cursor-pointer">
