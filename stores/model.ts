@@ -15,10 +15,14 @@ export const useModelStore = defineStore('model', {
       let show = value != undefined ? value : !this.menu
       this.overplay = show
       this.menu = show
+      
+      document.body.style.overflow = show ? 'hidden' : 'initial'
     },
     hidden() {
       this.overplay = false
       this.menu = false
+
+      document.body.style.overflow = 'initial'
     }
   },
 })

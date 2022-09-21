@@ -6,11 +6,12 @@
 
 <template>
   <div class="w-full h-full text-[#8f9bad]">
-    <div class="overlay" :class="{'!block': modelStore.$state.overplay}" @click.self="modelStore.hidden()"></div>
     <BlogLayoutHeader />
-
+    
     <BlogHomeFeatured />
-
+    <BlogHomeContent />
+    
+    <div class="overlay" :class="{'!block': modelStore.$state.overplay}" @click.self="modelStore.hidden()"></div>
     <BlogLayoutModalMenu />
   </div>
 </template>
@@ -27,6 +28,10 @@
 
   .color-2 {
     color: #203656 ;
+  }
+
+  ::selection {
+    @apply text-white bg-rose-400;
   }
 
   .overlay {

@@ -26,6 +26,7 @@
     if (header.value) {
       header_height.value = header.value.getBoundingClientRect().height
     }
+    handleScroll()
 
     window.addEventListener('scroll', handleScroll);
 
@@ -37,9 +38,9 @@
 
 <template>
   <header ref="header">
-    <div id="header" class="top-0 left-0 w-full bg-white" :class="{'down': header_down}">
+    <div id="header" class="top-0 left-0 w-full bg-white z-50" :class="{'down': header_down}">
       <BlogLayoutContainer>
-        <div id="containerHeader" class="flex items-center space-x-12 py-10 transition-all">
+        <div id="containerHeader" class="flex items-center space-x-12 py-10">
           <div class="logo flex-none color-2">
             <h1 class="text-4xl font-semibold">Blog <span class="text-rose-500">.</span></h1>
           </div>
@@ -130,7 +131,7 @@
     @apply shadow fixed;
   }
   #header.down #containerHeader {
-    @apply !py-4;
+    @apply !py-4 transition-all duration-300;
   }
 
   .menu {
