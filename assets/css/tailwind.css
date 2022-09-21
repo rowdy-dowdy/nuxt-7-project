@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  html, body, #__nuxt {
+  /* html, body, #__nuxt {
     @apply w-full h-full;
-  }
+  } */
 
   #__nuxt {
     @apply text-[#444];
@@ -19,5 +19,15 @@
   }
   .icon svg{
     @apply !w-full !h-full !fill-current;
+  }
+
+  .btn {
+    @apply bg-gradient-to-b bg-[length:auto_200%] hover:bg-bottom from-rose-400 via-rose-500 to-rose-400 text-white p-3 transition-all duration-300 rounded-full;
+  }
+}
+
+@layer utilities {
+  .btn-r {
+    @apply bg-gradient-to-r bg-[length:200%_auto] hover:bg-right;
   }
 }

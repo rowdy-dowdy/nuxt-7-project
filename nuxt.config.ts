@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     // 'nuxt-windicss',
     '@pinia/nuxt',
   ],
+  plugins: ['~/plugins/vue-collapse.ts'],
   // windicss: {
   //   analyze: {
   //     analysis: {
