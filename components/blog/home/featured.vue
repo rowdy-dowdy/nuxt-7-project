@@ -25,7 +25,7 @@
 <template>
   <BlogLayoutContainer>
     <div class="flex flex-wrap self-stretch lg:flex-nowrap space-y-6 lg:space-y-0 lg:space-x-6">
-      <div class="w-full lg:w-3/5 xl:w-2/3">
+      <div class="w-full lg:w-3/5 xl:w-2/3 flex-none">
         <div class="relative w-full h-full rounded-lg overflow-hidden group">
           <div class="w-full" style="padding-bottom: 70%;"></div>
           <a href="#" class="absolute block w-full h-full top-0 left-0">
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      <div class="w-full lg:w-2/5 xl:w-1/3">
+      <div class="w-full lg:w-2/5 xl:w-1/3 flex-none">
         <div class="w-full h-full flex flex-col rounded-lg border px-6">
           <div class="flex-none flex space-x-2 mt-8">
             <a href="#" class="flex-1 py-3 px-3 text-sm text-center border rounded-full"

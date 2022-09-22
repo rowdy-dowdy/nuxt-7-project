@@ -30,10 +30,10 @@ export default defineNuxtPlugin(nuxtApp => {
 
         el.style.display = 'block'
         let height = el.scrollHeight; // not scale
-        let show = el.dataset.show || 'false'
+        let show = el.dataset.show || undefined
         let node_id = parseInt(el.dataset.node_id)
 
-        console.log(node_id,timeoutids )
+        // console.log(node_id,timeoutids )
 
         // show
         if (binding.value) {
@@ -55,7 +55,7 @@ export default defineNuxtPlugin(nuxtApp => {
               el.style.height = null;
               el.dataset.show = 'true'
             }, time)
-          }, 0);
+          }, 10);
         }
         // hidden
         else {
@@ -78,7 +78,7 @@ export default defineNuxtPlugin(nuxtApp => {
               el.style.display = 'none';
               el.dataset.show = 'false'
             }, time)
-          }, 0);
+          }, 10);
         }
       }
     },

@@ -38,7 +38,7 @@
 
 <template>
   <header ref="header">
-    <div id="header" class="top-0 left-0 w-full bg-white z-50" :class="{'down': header_down}">
+    <div id="header" class="relative top-0 left-0 w-full bg-white z-50" :class="{'down': header_down}">
       <BlogLayoutContainer>
         <div id="containerHeader" class="flex items-center space-x-12 py-10">
           <div class="logo flex-none color-2">
@@ -128,7 +128,7 @@
 
 <style scoped>
   #header.down {
-    @apply shadow fixed;
+    @apply shadow !fixed;
   }
   #header.down #containerHeader {
     @apply !py-4 transition-all duration-300;
@@ -152,14 +152,16 @@
     color: var(--color-1);
     animation: growOut .3s ease-in-out forwards;
     transform-origin: top center;
-    @apply hidden absolute top-full left-0 rounded bg-white shadow font-light w-max;
+    box-shadow: 0 8px 20px rgba(32,54,86,.2);
+    min-width: 170px;
+    @apply hidden absolute top-full left-0 rounded bg-white font-light w-max;
   }
   .menu .item:hover > .dropdown-menu {
     @apply block;
   }
 
   .menu .item .menu-arrow {
-    @apply w-5 h-5;
+    @apply w-5 h-5 ml-auto;
   }
 
   .dropdown-menu::after {
@@ -210,6 +212,6 @@
   }
 
   .button-icon {
-    @apply icon w-10 h-10 rounded-full bg-gradient-to-b from-rose-300 via-rose-500 to-rose-300 bg-[length:auto_200%] hover:bg-[bottom_center] text-white p-3 shadow transition-all duration-300;
+    @apply icon w-10 h-10 rounded-full bg-gradient-to-b from-rose-300 via-rose-500 to-rose-300 bg-[length:auto_200%] hover:bg-[bottom_center] text-white p-2.5 shadow transition-all duration-300;
   }
 </style>
