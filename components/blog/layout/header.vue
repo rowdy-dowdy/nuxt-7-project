@@ -44,6 +44,7 @@
           <div class="logo flex-none color-2">
             <h1 class="text-4xl font-semibold">Blog <span class="text-rose-500">.</span></h1>
           </div>
+
           <ul class="menu hidden lg:flex">
             <li class="item">
               <NuxtLink to="/blog">
@@ -90,6 +91,7 @@
             </li>
             <li class="item"><a href="#" to="/blog/contact">Contact</a></li>
           </ul>
+
           <div class="flex-auto flex items-center space-x-8 justify-end">
             <div class="hidden xl:flex space-x-3">
               <a href="#" class="icon w-5 color-2 hover:text-red-500">
@@ -111,8 +113,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.264.406 4.814c.23.857.905 1.534 1.763 1.765 1.582.43 7.83.437 7.83.437s6.265.007 7.831-.403a2.515 2.515 0 0 0 1.767-1.763c.414-1.565.417-4.812.417-4.812s.02-3.265-.407-4.831zM9.996 15.005l.005-6 5.207 3.005-5.212 2.995z"></path></svg>
               </a>
             </div>
+
             <div class="flex space-x-3">
-              <a href="#" class="button-icon">
+              <a href="#" class="button-icon" @click.prevent="modelStore.toggleSearch()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
               </a>
               <a href="#" class="button-icon" @click.prevent="modelStore.toggleMenu()">

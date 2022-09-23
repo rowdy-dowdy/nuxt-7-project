@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-  import Swiper, { Navigation, Pagination } from 'swiper'
+  import Swiper, { Navigation } from 'swiper'
   import 'swiper/css'
   import { data } from './data_post';
   const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
   var data_post = computed(() => data.splice(0, 4))
 
-  var swiper = null
+  var swiper: Swiper | null = null
+  var swiper2: Swiper | null = null
 
   onMounted(() => {
     swiper = new Swiper('.slide1', {
@@ -20,6 +21,24 @@
         },
       }
     });
+
+    swiper2 = new Swiper('.slide2', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      modules: [Navigation],
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+
+    return () => {
+      if (swiper)
+        swiper.destroy()
+      if (swiper2)
+        swiper2.destroy()
+    }
   })
 
   var blog_loading = ref(false)
@@ -32,6 +51,8 @@
         }, 700);
     }
   )
+
+  var tags = ref(['Audio', 'Content', 'Feature', 'Image', 'Inspiration', 'Lifestyle', 'Photo', 'Pick', 'Slide', 'Trending'])
 </script>
 
 <template>
@@ -98,10 +119,12 @@
               </div>
             </div>
           </section>
+
           <!-- banner -->
           <section class="py-6">
             <img src="https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/ad-750.png" alt="" class="w-full rounded-lg">
           </section>
+
           <!-- Trending -->
           <section class="py-6">
             <h2 class="text-2xl font-semibold color-2">
@@ -192,6 +215,7 @@
               </div>
             </div>
           </section>
+
           <!-- Inspiration -->
           <section class="py-6">
             <h2 class="text-2xl font-semibold color-2">
@@ -231,6 +255,7 @@
               </div>
             </div>
           </section>
+
           <!-- Latest Posts -->
           <section class="py-6">
             <h2 class="text-2xl font-semibold color-2">
@@ -372,7 +397,7 @@
                 </svg>
               </h2>
 
-              <div class="flex flex-col space-y-4 mt-12">
+              <div class="flex flex-col space-y-4 mt-12 font-medium">
                 <a href="#" class="flex space-x-4 border-gradient-right-top pt-4">
                   <span class="icon text-rose-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
@@ -436,12 +461,82 @@
                 </svg>
               </h2>
 
-              <p class="mt-12 text-center color-2 font-normal">Join 70,000 subscribers!</p>
-              <input type="text" class="mt-4 px-4 w-full py-2 text-center border bg-white focus:border-rose-500 rounded-full text-sm" placeholder="Email address...">
-              <button class="btn btn-r mt-2 text-sm block w-full px-4 py-2.5">Sign Up</button>
+              <p class="mt-8 text-center color-2 font-normal">Join 70,000 subscribers!</p>
+              <input type="text" class="mt-4 px-4 w-full py-2 text-center border bg-white focus:border-rose-500 rounded-full text-[#444]" placeholder="Email address...">
+              <button class="btn btn-r mt-2 block w-full px-4 py-2.5">Sign Up</button>
               <p class="mt-6 text-sm text-center">
                 By signing up, you agree to our <span class="text-rose-500">Privacy Policy</span>
               </p>
+            </div>
+          </section>
+
+          <!-- Celebration -->
+          <section class="py-6">
+            <div class="rounded-lg border p-6">
+              <h2 class="text-xl font-semibold color-2 text-center">
+                Celebration
+                <svg class="mt-2 mx-auto" width="33" height="6" xmlns="http://www.w3.org/2000/svg">
+                  <defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FE4F70"></stop><stop offset="100%" stop-color="#FFA387"></stop></linearGradient> </defs><path d="M33 1c-3.3 0-3.3 4-6.598 4C23.1 5 23.1 1 19.8 1c-3.3 0-3.3 4-6.599 4-3.3 0-3.3-4-6.6-4S3.303 5 0 5" stroke="url(#gradient)" stroke-width="2" fill="none"></path>
+                </svg>
+              </h2>
+
+              <div class="mt-8">
+                <div class="swiper slide2">
+                  <!-- Additional required wrapper -->
+                  <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div v-for="item in data_post.slice()" :key="item.id" class="swiper-slide">
+                      <div class="relative w-full" style="padding-bottom: 70%;">
+                        <a href="#" class="absolute block w-full h-full top-0 left-0 rounded-lg overflow-hidden">
+                          <img :src="item.image" alt=""
+                              class="block w-full h-full object-cover transition-all duration-500 hover:scale-110">
+                        </a>
+                        <div class="absolute top-4 left-4">
+                          <a href="#" class="btn btn-r py-1 px-3 text-sm">{{item.category}}</a>
+                        </div>
+                      </div>
+                      <h3 class="mt-4 text-lg sm:text-xl font-semibold color-2 hover:text-rose-400">
+                        <a href="#">{{item.title}}</a>
+                      </h3>
+                      <div class="mt-2 flex space-x-4 items-center text-sm">
+                        <a href="#" class="hover:text-rose-400">{{item.author}}</a>
+                        <span class="w-1 h-1 rounded-full bg-current"></span>
+                        <span>{{format_time(item.created_at)}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- If we need navigation buttons -->
+                  <div class="mt-6 flex justify-center space-x-3">
+                    <div class="swiper-button-prev">
+                      <span class="icon w-8 h-8 rounded-full border border-gray-300 hover:border-rose-500 hover:text-rose-500 p-1 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                      </span>
+                    </div>
+                    <div class="swiper-button-next">
+                      <span class="icon w-8 h-8 rounded-full border border-gray-300 hover:border-rose-500 hover:text-rose-500 p-1 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tag Clouds -->
+          <section class="py-6">
+            <div class="rounded-lg border p-6">
+              <h2 class="text-xl font-semibold color-2 text-center">
+                Tag Clouds
+                <svg class="mt-2 mx-auto" width="33" height="6" xmlns="http://www.w3.org/2000/svg">
+                  <defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FE4F70"></stop><stop offset="100%" stop-color="#FFA387"></stop></linearGradient> </defs><path d="M33 1c-3.3 0-3.3 4-6.598 4C23.1 5 23.1 1 19.8 1c-3.3 0-3.3 4-6.599 4-3.3 0-3.3-4-6.6-4S3.303 5 0 5" stroke="url(#gradient)" stroke-width="2" fill="none"></path>
+                </svg>
+              </h2>
+
+              <div class="mt-6 flex flex-wrap text-sm">
+                <a v-for="tag in tags" href="#" class="m-2 ml-0 px-3 py-1 border rounded-full hover:text-rose-500 hover:border-rose-500">#{{tag}}</a>
+              </div>
             </div>
           </section>
         </div>

@@ -5,7 +5,8 @@ export const useModelStore = defineStore('model', {
   state: () => {
     return { 
       overplay: false,
-      menu: false 
+      menu: false,
+      search: false
     }
   },
   // could also be defined as
@@ -18,9 +19,17 @@ export const useModelStore = defineStore('model', {
       
       document.body.style.overflow = show ? 'hidden' : 'initial'
     },
+    toggleSearch(value = undefined) {
+      let show = value != undefined ? value : !this.search
+      this.overplay = show
+      this.search = show
+      
+      document.body.style.overflow = show ? 'hidden' : 'initial'
+    },
     hidden() {
       this.overplay = false
       this.menu = false
+      this.search = false
 
       document.body.style.overflow = 'initial'
     }

@@ -7,7 +7,8 @@
 
 <template>
   <BlogLayoutContainer>
-    <div class="flex flex-wrap items-center space-y-4 py-6 -mx-4 md:space-y-0 md:py-12">
+    <div class="mt-10 border-t"></div>
+    <div class="flex flex-wrap items-center space-y-4 py-6 -mx-4 md:space-y-0 md:py-10">
       <div class="w-full md:w-1/3 px-4 text-center md:text-left text-sm">
         © {{year}} Việt Hùng. Theme by VietTheme. 
       </div>

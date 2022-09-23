@@ -2,8 +2,6 @@
   import { useModelStore } from "~/stores/model";
 
   const modelStore = useModelStore()
-
-  let show = ref(false)
 </script>
 
 <template>
