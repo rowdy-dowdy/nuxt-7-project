@@ -86,7 +86,7 @@
   }
 
   .menu :deep(.dropdown-menu .item .menu-arrow) {
-    @apply static p-0 ml-1 border-0;
+    @apply static p-0 ml-1 border-0 w-6;
   }
 
   /* dropdown in dropdown */

@@ -33,22 +33,28 @@
     font-weight: bold;
     font-style: italic;
   }
+  
   /* light */
   @font-face {
     font-family: "Poppins";
-    src: url("~/assets/fonts/poppins/Poppins-Light.otf") format("truetype");
-    font-weight: lighter;
+    src: url("~/assets/fonts/poppins/Poppins-Light.otf");
+    font-weight: 300;
     font-style: normal;
   }
 
   @font-face {
     font-family: "Poppins";
-    src: url("~/assets/fonts/poppins/Poppins-LightItalic.otf") format("truetype");
-    font-weight: lighter;
+    src: url("~/assets/fonts/poppins/Poppins-LightItalic.otf");
+    font-weight: 300;
     font-style: italic;
   }
 
   html {
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  input {
+    @apply focus:outline-none;
   }
 </style>

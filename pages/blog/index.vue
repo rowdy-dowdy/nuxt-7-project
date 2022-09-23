@@ -10,6 +10,8 @@
     
     <BlogHomeFeatured />
     <BlogHomeContent />
+
+    <BlogLayoutFooter />
     
     <div class="overlay" :class="{'!block': modelStore.$state.overplay}" @click.self="modelStore.hidden()"></div>
     <BlogLayoutModalMenu />
@@ -42,5 +44,9 @@
   @keyframes fadeBg {
     0% { opacity: 0; }
     100% { opacity: 1; }
+  }
+
+  p, span {
+    font-weight: 300;
   }
 </style>
