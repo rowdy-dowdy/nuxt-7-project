@@ -61,8 +61,8 @@
                 <li class="item"><a href="#">Minimal</a></li>
               </ul>
             </li>
-            <li class="item"><a href="#" to="/blog/lifestyle">Lifestyle</a></li>
-            <li class="item"><a href="#" to="/blog/culture">Culture</a></li>
+            <li class="item"><RouterLink to="/blog/lifestyle">Lifestyle</RouterLink></li>
+            <li class="item"><RouterLink to="/blog/culture">Culture</RouterLink></li>
             <li class="item">
               <a href="#" to="/blog/feature">
                 Feature

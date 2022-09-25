@@ -2,12 +2,19 @@
   import { useModelStore } from "~/stores/model";
 
   const modelStore = useModelStore()
+
+  const closeModalSearch = (e) => {
+    if (e.key == "Escape" && modelStore.search) {
+      // console.log(modelStore.search)
+      modelStore.toggleSearch(false)
+    }
+  }
   onMounted(() => {
-    window.addEventListener('keydown', (e) => {
-      if (e.key == "Escape") {
-        modelStore.toggleSearch(false)
-      }
-    })
+    window.addEventListener('keydown', closeModalSearch)
+
+    return () => {
+      window.removeEventListener('keydown', closeModalSearch)
+    }
   })
 </script>
 
