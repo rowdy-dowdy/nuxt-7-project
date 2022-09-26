@@ -74,9 +74,15 @@ const temp = [
  
 ]
 
-export const data = temp.map((v,i) => {
-  return {
-    id: i,
-    ...v
-  }
-}).sort((a, b) => 0.5 - Math.random());
+
+export default defineEventHandler((event) => {
+  // const query = useQuery(event)
+  const data = temp.map((v,i) => {
+    return {
+      id: i,
+      ...v
+    }
+  }).sort((a, b) => 0.5 - Math.random());
+  
+  return data
+})

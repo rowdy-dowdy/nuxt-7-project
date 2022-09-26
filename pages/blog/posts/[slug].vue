@@ -3,12 +3,12 @@
   import 'swiper/css'
 
   definePageMeta({
-    middleware: ["blog-category"]
+    middleware: ["blog-post"]
   })
 
   // const route = useRoute()
   // console.log(route.params.slug)
-  const { data: posts } = await useFetch('/api/blog/posts')
+  const { data: post } = await useFetch('/api/blog/posts')
   
   const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
@@ -67,7 +67,7 @@
           <section class="py-6">
             <div class="flex flex-wrap -mx-4">
               <!-- post item -->
-              <div v-for="item in posts" :key="item.id" class="w-full sm:w-1/2 mb-8 px-4">
+              <div v-for="item in data_post" :key="item.id" class="w-full sm:w-1/2 mb-8 px-4">
                 <div class="flex flex-col h-full">
                   <div class="flex-grow min-h-0 relative">
                     <div class="w-full pb-[72%]"></div>
@@ -159,7 +159,7 @@
               </h2>
 
               <div class="flex flex-col space-y-4 mt-12">
-                <div v-for="item, index in posts.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
+                <div v-for="item, index in data_post.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
                   <div class="flex-none w-14 h-14 relative">
                     <a href="#" class="block w-full h-full sm:w-16 sm:h-16 rounded-full overflow-hidden">
                       <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
@@ -277,7 +277,7 @@
                   <!-- Additional required wrapper -->
                   <div class="swiper-wrapper">
                     <!-- Slides -->
-                    <div v-for="item in posts.slice()" :key="item.id" class="swiper-slide">
+                    <div v-for="item in data_post.slice()" :key="item.id" class="swiper-slide">
                       <div class="relative w-full" style="padding-bottom: 70%;">
                         <a href="#" class="absolute block w-full h-full top-0 left-0 rounded-lg overflow-hidden">
                           <img :src="item.image" alt=""

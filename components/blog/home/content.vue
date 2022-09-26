@@ -1,10 +1,10 @@
 <script lang="ts" setup>
   import Swiper, { Navigation } from 'swiper'
   import 'swiper/css'
-  import { data } from './data_post';
+
   const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
-  var data_post = computed(() => data.splice(0, 4))
+  const { data: posts } = await useFetch('/api/blog/posts')
 
   var swiper: Swiper | null = null
   var swiper2: Swiper | null = null
@@ -103,7 +103,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 mt-10 sm:mt-0">
                   <div class="flex flex-col space-y-5">
-                    <div v-for="item in data_post" :key="item.id" class="flex space-x-4 pb-5 border-b last-of-type:pb-0 last-of-type:!border-0 border-gradient-left-bot">
+                    <div v-for="item in posts" :key="item.id" class="flex space-x-4 pb-5 border-b last-of-type:pb-0 last-of-type:!border-0 border-gradient-left-bot">
                       <a href="#" class="flex-none w-28 h-20 rounded-lg overflow-hidden">
                         <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
                       </a>
@@ -199,7 +199,7 @@
                 </div>
               </div>
               <div class="mt-6 flex flex-wrap items-stretch -mx-5">
-                <div v-for="item in data_post" :key="item.id" class="w-full sm:w-1/2 px-5 mt-5">
+                <div v-for="item in posts" :key="item.id" class="w-full sm:w-1/2 px-5 mt-5">
                   <div class="flex space-x-4 pt-5 border-t last-of-type:pb-0 border-gradient-left-top">
                     <a href="#" class="flex-none w-28 h-20 rounded-lg overflow-hidden">
                       <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
@@ -230,7 +230,7 @@
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
                   <!-- Slides -->
-                  <div v-for="item in data_post" :key="item.id" class="swiper-slide">
+                  <div v-for="item in posts" :key="item.id" class="swiper-slide">
                     <div class="relative w-full h-full rounded-lg overflow-hidden group">
                       <div class="w-full" style="padding-bottom: 70%;"></div>
                       <a href="#" class="absolute block w-full h-full top-0 left-0">
@@ -267,7 +267,7 @@
             <div class="mt-6 rounded-lg border p-6">
               <div class="flex flex-col space-y-6">
                 <!-- item -->
-                <div v-for="item in data_post" :key="item.id" class="flex flex-wrap sm:flex-nowrap space-x-4 pb-6 border-gradient-left-bot">
+                <div v-for="item in posts" :key="item.id" class="flex flex-wrap sm:flex-nowrap space-x-4 pb-6 border-gradient-left-bot">
                   <div class="flex-none w-full sm:w-1/3 relative">
                     <div class="w-full pb-[72%]"></div>
                     <div class="absolute w-full h-full top-0 left-0">
@@ -367,7 +367,7 @@
               </h2>
 
               <div class="flex flex-col space-y-4 mt-12">
-                <div v-for="item, index in data_post.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
+                <div v-for="item, index in posts.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
                   <div class="flex-none w-14 h-14 relative">
                     <a href="#" class="block w-full h-full sm:w-16 sm:h-16 rounded-full overflow-hidden">
                       <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
@@ -485,7 +485,7 @@
                   <!-- Additional required wrapper -->
                   <div class="swiper-wrapper">
                     <!-- Slides -->
-                    <div v-for="item in data_post.slice()" :key="item.id" class="swiper-slide">
+                    <div v-for="item in posts.slice()" :key="item.id" class="swiper-slide">
                       <div class="relative w-full" style="padding-bottom: 70%;">
                         <a href="#" class="absolute block w-full h-full top-0 left-0 rounded-lg overflow-hidden">
                           <img :src="item.image" alt=""

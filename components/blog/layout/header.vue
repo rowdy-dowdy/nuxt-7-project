@@ -61,8 +61,8 @@
                 <li class="item"><a href="#">Minimal</a></li>
               </ul>
             </li>
-            <li class="item"><RouterLink to="/blog/lifestyle">Lifestyle</RouterLink></li>
-            <li class="item"><RouterLink to="/blog/culture">Culture</RouterLink></li>
+            <li class="item"><RouterLink to="/blog/category/lifestyle">Lifestyle</RouterLink></li>
+            <li class="item"><RouterLink to="/blog/category/culture">Culture</RouterLink></li>
             <li class="item">
               <a href="#" to="/blog/feature">
                 Feature
@@ -147,7 +147,7 @@
   .menu .item a {
     @apply flex items-center space-x-2 font-light text-sm px-5 py-2 rounded-full;
   }
-  .menu .item a.router-link-active {
+  .menu .item a.router-link-exact-active {
     @apply bg-gradient-to-r from-rose-500 to-rose-400 text-white;
   }
 

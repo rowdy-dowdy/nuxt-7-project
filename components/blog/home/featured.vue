@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-  import { data } from './data_post';
-
   var tab = ref(1)
   var loading = ref(false)
 
@@ -19,7 +17,7 @@
 
   const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
-  var data_post = computed(() => data.splice(0, 4))
+  const { data: posts } = await useFetch('/api/blog/posts')
 </script>
 
 <template>
@@ -64,7 +62,7 @@
             </div>
             <div class="flex-grow min-h-0 relative mt-10">
               <div class="flex flex-col space-y-4">
-                <div v-for="item in data_post" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
+                <div v-for="item in posts" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
                   <a href="#" class="flex-none w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden">
                     <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
                   </a>
