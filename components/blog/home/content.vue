@@ -103,7 +103,7 @@
                 </div>
                 <div class="w-full sm:w-1/2 mt-10 sm:mt-0">
                   <div class="flex flex-col space-y-5">
-                    <div v-for="item in posts" :key="item.id" class="flex space-x-4 pb-5 border-b last-of-type:pb-0 last-of-type:!border-0 border-gradient-left-bot">
+                    <div v-for="item in posts.slice(0,4)" :key="item.id" class="flex space-x-4 pb-5 border-b last-of-type:pb-0 last-of-type:!border-0 border-gradient-left-bot">
                       <a href="#" class="flex-none w-28 h-20 rounded-lg overflow-hidden">
                         <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
                       </a>
@@ -199,7 +199,7 @@
                 </div>
               </div>
               <div class="mt-6 flex flex-wrap items-stretch -mx-5">
-                <div v-for="item in posts" :key="item.id" class="w-full sm:w-1/2 px-5 mt-5">
+                <div v-for="item in posts.slice(0,4)" :key="item.id" class="w-full sm:w-1/2 px-5 mt-5">
                   <div class="flex space-x-4 pt-5 border-t last-of-type:pb-0 border-gradient-left-top">
                     <a href="#" class="flex-none w-28 h-20 rounded-lg overflow-hidden">
                       <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
@@ -230,7 +230,7 @@
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
                   <!-- Slides -->
-                  <div v-for="item in posts" :key="item.id" class="swiper-slide">
+                  <div v-for="item in posts.slice(0,4)" :key="item.id" class="swiper-slide">
                     <div class="relative w-full h-full rounded-lg overflow-hidden group">
                       <div class="w-full" style="padding-bottom: 70%;"></div>
                       <a href="#" class="absolute block w-full h-full top-0 left-0">
@@ -267,7 +267,7 @@
             <div class="mt-6 rounded-lg border p-6">
               <div class="flex flex-col space-y-6">
                 <!-- item -->
-                <div v-for="item in posts" :key="item.id" class="flex flex-wrap sm:flex-nowrap space-x-4 pb-6 border-gradient-left-bot">
+                <div v-for="item in posts.slice(0,5)" :key="item.id" class="flex flex-wrap sm:flex-nowrap space-x-4 pb-6 border-gradient-left-bot">
                   <div class="flex-none w-full sm:w-1/3 relative">
                     <div class="w-full pb-[72%]"></div>
                     <div class="absolute w-full h-full top-0 left-0">
@@ -295,10 +295,10 @@
                       <p class="text-sm line-clamp-2">{{item.description}}</p>
                     </div>
                     <div class="flex justify-between mt-auto py-2">
-                      <a href="#" class="icon w-6 h-6">
+                      <a href="#" class="icon w-6 h-6 hover:text-rose-500">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M5.5 15a3.51 3.51 0 0 0 2.36-.93l6.26 3.58a3.06 3.06 0 0 0-.12.85 3.53 3.53 0 1 0 1.14-2.57l-6.26-3.58a2.74 2.74 0 0 0 .12-.76l6.15-3.52A3.49 3.49 0 1 0 14 5.5a3.35 3.35 0 0 0 .12.85L8.43 9.6A3.5 3.5 0 1 0 5.5 15zm12 2a1.5 1.5 0 1 1-1.5 1.5 1.5 1.5 0 0 1 1.5-1.5zm0-13A1.5 1.5 0 1 1 16 5.5 1.5 1.5 0 0 1 17.5 4zm-12 6A1.5 1.5 0 1 1 4 11.5 1.5 1.5 0 0 1 5.5 10z"></path></svg>
                       </a>
-                      <a href="#" class="icon w-6 h-6">
+                      <a href="#" class="icon w-6 h-6 hover:text-rose-500">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
                       </a>
                     </div>
@@ -485,7 +485,7 @@
                   <!-- Additional required wrapper -->
                   <div class="swiper-wrapper">
                     <!-- Slides -->
-                    <div v-for="item in posts.slice()" :key="item.id" class="swiper-slide">
+                    <div v-for="item in posts.slice(0,4)" :key="item.id" class="swiper-slide">
                       <div class="relative w-full" style="padding-bottom: 70%;">
                         <a href="#" class="absolute block w-full h-full top-0 left-0 rounded-lg overflow-hidden">
                           <img :src="item.image" alt=""

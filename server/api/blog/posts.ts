@@ -1,6 +1,7 @@
 const temp = [
   {
     title: 'Facts About Business That Will Help You Success',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/drop-the-label-movement-608463-unsplash-325x233.jpg',
     category: 'Fashion',
@@ -9,6 +10,7 @@ const temp = [
   },
   {
     title: '5 Easy Ways You Can Turn Future Into Success',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/grant-ritchie-1154815-unsplash-325x233.jpg',
     category: 'Fashion',
@@ -17,6 +19,7 @@ const temp = [
   },
   {
     title: 'Our Light Is About To Stop Being Relevant',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/joey-nicotra-HiqgOQaksAQ-unsplash-e1660634166643-580x485.jpg',
     category: 'Fashion',
@@ -25,6 +28,7 @@ const temp = [
   },
   {
     title: 'Feel Like A Pro With The Help Of These 7 Tips',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/jacob-postuma-395327-unsplash-580x485.jpg',
     category: 'Fashion',
@@ -33,6 +37,7 @@ const temp = [
   },
   {
     title: '60 Things To Immediately Do About Building',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/evstratov_-U7stODj21DU-unsplash-330x250.jpg',
     category: 'Fashion',
@@ -41,6 +46,7 @@ const temp = [
   },
   {
     title: 'Master The Art Of Nature With These 7 Tips',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/loren-gu-146832-unsplash-330x250.jpg',
     category: 'Fashion',
@@ -49,6 +55,7 @@ const temp = [
   },
   {
     title: 'Your Light Is About To Stop Being Relevant',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/david-van-dijk-255503-unsplash-330x250.jpg',
     category: 'Fashion',
@@ -57,6 +64,7 @@ const temp = [
   },
   {
     title: 'What Can You Do About Fashion Right Now',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/thought-catalog-640705-unsplash-550x367.jpg',
     category: 'Fashion',
@@ -65,6 +73,7 @@ const temp = [
   },
   {
     title: 'Easy Ways To Learn Everything About Construction',
+    slug: '1',
     description: 'The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc,…',
     image: 'https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/jason-briscoe-105344-unsplash-325x233.jpg',
     category: 'Fashion',

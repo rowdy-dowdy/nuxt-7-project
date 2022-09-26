@@ -1,14 +1,18 @@
 <script setup lang="ts">
-  import Swiper, { Navigation } from 'swiper'
+  import Swiper, { Navigation, Parallax } from 'swiper'
   import 'swiper/css'
+  import 'swiper/css/parallax'
 
   definePageMeta({
     middleware: ["blog-post"]
   })
 
   // const route = useRoute()
-  // console.log(route.params.slug)
-  const { data: post } = await useFetch('/api/blog/posts')
+  // console.log(route.params.slug)=
+  const [{ data: post }, { data: posts }] = await Promise.all([
+    useFetch(`/api/blog/posts/slug`),
+    useFetch(`/api/blog/posts`)
+  ])
   
   const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
@@ -26,6 +30,7 @@
   )
 
   var swiper2: Swiper | null = null
+  var swiper3: Swiper | null = null
 
   onMounted(() => {
     swiper2 = new Swiper('.slide2', {
@@ -39,9 +44,22 @@
       },
     });
 
+    swiper3 = new Swiper('.slide3', {
+      loop: true,
+      modules: [Navigation, Parallax],
+      parallax: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+
     return () => {
       if (swiper2)
         swiper2.destroy()
+
+      if (swiper3)
+        swiper3.destroy()
     }
   })
 
@@ -50,10 +68,9 @@
 <template>
   <div class="">
     <!-- breadcrumb -->
-    <div class="bg-blue-50 py-12">
+    <div class="py-6">
       <BlogLayoutContainer class="text-center">
-        <h3 class="text-3xl font-semibold color-2 mb-2">Lifestyle</h3>
-        <p class="text-sm flex space-x-2 justify-center">
+        <p class="text-sm flex space-x-2">
           <a href="#" class="hover:text-rose-500">VietHung Sites</a> 
           <span>/</span> 
           <span>Lifestyle</span>
@@ -65,53 +82,51 @@
       <div class="flex flex-wrap -mx-4">
         <div class="w-full lg:w-2/3 px-4">
           <section class="py-6">
-            <div class="flex flex-wrap -mx-4">
-              <!-- post item -->
-              <div v-for="item in data_post" :key="item.id" class="w-full sm:w-1/2 mb-8 px-4">
-                <div class="flex flex-col h-full">
-                  <div class="flex-grow min-h-0 relative">
-                    <div class="w-full pb-[72%]"></div>
-                    <div class="absolute w-full h-full top-0 left-0">
-                      <a href="" class="block w-full h-full rounded-t-lg overflow-hidden">
-                        <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
-                      </a>
-                      <a href="#" class="absolute top-4 left-4 sm:top-6 sm:left-6 btn btn-r py-1 px-3 text-sm">{{item.category}}</a>
-                      <span class="absolute right-4 sm:right-6 bottom-0 translate-y-1/2 ">
-                        <span class="icon w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-b from-rose-300 via-rose-500 to-rose-300 bg-[length:auto_200%] text-white p-2.5 shadow">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="7.499" cy="9.5" r="1.5"></circle><path d="m10.499 14-1.5-2-3 4h12l-4.5-6z"></path><path d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-16 14V6h16l.002 12H3.999z"></path></svg>
-                        </span>
-                      </span>
-                    </div>
-      
-                  </div>
-                  <div class="flex-none flex flex-col space-y-4 rounded-b-lg border p-4 sm:p-6">
-                    <div class="flex items-center space-x-4 text-sm">
-                      <a href="#"><img src="~/assets/img/rose.png" alt="Rose" class="w-8 h-8 rounded-full object-cover"></a>
-                      <a href="#" class="hover:text-rose-500 transition-all"><span>{{item.author}}</span></a>
-                      <span class="w-1 h-1 bg-rose-500 rounded-full"></span>
-                      <span>{{format_time(item.created_at)}}</span>
-                    </div>
-                    <h3 class="text-lg font-semibold color-2 transition-all duration-300 hover:!text-rose-500">
-                      <a href="#" class="line-clamp-3">{{item.title}}</a>
-                    </h3>
-                    <p class="text-sm line-clamp-3">{{item.description}}</p>
+            <h1 class="text-xl sm:text-3xl md:text-4xl font-semibold color-2">{{post.title}}</h1>
+            <div class="flex items-center space-x-4 text-sm my-4">
+              <a href="#"><img src="~/assets/img/rose.png" alt="Rose" class="w-8 h-8 rounded-full object-cover"></a>
+              <a href="#" class="hover:text-rose-500 transition-all"><span>{{post.author}}</span></a>
+              <span class="w-1 h-1 bg-rose-500 rounded-full"></span>
+              <span>{{format_time(post.created_at)}}</span>
+              <span class="w-1 h-1 bg-rose-500 rounded-full"></span>
+              <span class="flex items-center space-x-1">
+                <span class="icon w-4 h-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 5.589 2 10c0 2.908 1.898 5.516 5 6.934V22l5.34-4.005C17.697 17.852 22 14.32 22 10c0-4.411-4.486-8-10-8zm0 14h-.333L9 18v-2.417l-.641-.247C5.67 14.301 4 12.256 4 10c0-3.309 3.589-6 8-6s8 2.691 8 6-3.589 6-8 6z"></path></svg>
+                </span>
+                <span>({{post.comments.length}})</span>
+              </span>
+            </div>
+
+            <!-- image post galery -->
+            <div class="swiper slide3 relative rounded-lg overflow-hidden">
+              <!-- Additional required wrapper -->
+              <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div v-for="item, index in post.images" :key="index" class="swiper-slide overflow-hidden">
+                  <div class="relative w-full" style="padding-bottom: 70%;">
+                    <span class="absolute block w-full h-full top-0 left-0">
+                      <img :src="item" alt="" data-swiper-parallax="50%"
+                        class="block w-full h-full object-cover">
+                    </span>
                   </div>
                 </div>
               </div>
+
+              <!-- If we need navigation buttons -->
+              <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-10">
+                <span class="icon w-8 h-8 md:w-12 md:h-12 rounded-full bg-gray-200 hover:bg-white hover:text-rose-500 p-1 cursor-pointer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+                </span>
+              </div>
+              <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-10">
+                <span class="icon w-8 h-8 md:w-12 md:h-12 rounded-full bg-gray-200 hover:bg-white hover:text-rose-500 p-1 cursor-pointer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+                </span>
+              </div>
             </div>
 
-            <!-- load more -->
-            <div class="mt-6 py-6 flex items-center justify-center border-b">
-              <button
-                class="px-8 py-2.5 rounded-full border text-sm hover:border-rose-500 hover:text-rose-500 transition-colors flex items-center space-x-2"
-                @click.prevent="blog_loading = true"
-              >
-                <span class="hidden icon w-4 h-4 animate-spin" :class="{'!block': blog_loading}">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="12" cy="20" r="2"></circle><circle cx="12" cy="4" r="2"></circle><circle cx="6.343" cy="17.657" r="2"></circle><circle cx="17.657" cy="6.343" r="2"></circle><circle cx="4" cy="12" r="2.001"></circle><circle cx="20" cy="12" r="2"></circle><circle cx="6.343" cy="6.344" r="2"></circle><circle cx="17.657" cy="17.658" r="2"></circle></svg>
-                </span>
-                <span>Load more</span>
-              </button>
-            </div>
+            <!-- content -->
+            <div class="content clear-none mt-4 text-[8.75rem] sm:text-base" v-html="post.body"></div>
           </section>
         </div>
 
@@ -159,7 +174,7 @@
               </h2>
 
               <div class="flex flex-col space-y-4 mt-12">
-                <div v-for="item, index in data_post.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
+                <div v-for="item, index in posts.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
                   <div class="flex-none w-14 h-14 relative">
                     <a href="#" class="block w-full h-full sm:w-16 sm:h-16 rounded-full overflow-hidden">
                       <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
@@ -277,7 +292,7 @@
                   <!-- Additional required wrapper -->
                   <div class="swiper-wrapper">
                     <!-- Slides -->
-                    <div v-for="item in data_post.slice()" :key="item.id" class="swiper-slide">
+                    <div v-for="item in posts.slice(0,4)" :key="item.id" class="swiper-slide">
                       <div class="relative w-full" style="padding-bottom: 70%;">
                         <a href="#" class="absolute block w-full h-full top-0 left-0 rounded-lg overflow-hidden">
                           <img :src="item.image" alt=""
@@ -342,5 +357,33 @@
     @apply border-t;
     border-image-slice: 1;
     border-image-source: linear-gradient(to left top, #c2c2c2, #fff);
+  }
+
+  :deep(.content *) {
+    @apply tracking-wide;
+  }
+  :deep(.content p) {
+    @apply mb-3 clear-none leading-7;
+  }
+
+  :deep(.content img + figcaption) {
+    @apply text-center text-sm pt-1 pb-3;
+  }
+
+  :deep(.content h3) {
+    color: var(--color-2);
+    @apply text-xl sm:text-2xl md:text-3xl font-semibold my-5;
+  }
+
+  :deep(.content ul) {
+    list-style-type: circle;
+    @apply px-8 mb-4;
+  }
+
+  :deep(.content a) {
+    @apply text-rose-500;
+  }
+  :deep(.content a:hover) {
+    color: var(--color-2);
   }
 </style>
