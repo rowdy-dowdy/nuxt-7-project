@@ -26,15 +26,15 @@
       <div class="w-full lg:w-2/3 px-4">
         <div class="relative w-full h-full rounded-lg overflow-hidden group">
           <div class="w-full" style="padding-bottom: 70%;"></div>
-          <a href="#" class="absolute block w-full h-full top-0 left-0">
+          <RouterLink to="/blog/posts/1" class="absolute block w-full h-full top-0 left-0">
             <img src="https://themeger.shop/wordpress/katen/wp-content/uploads/2022/08/grant-ritchie-1154815-unsplash-750x540.jpg" alt=""
               class="block w-full h-full object-cover transition-all duration-500 group-hover:scale-110">
             <div class="absolute w-full h-full top-0 left-0 bg-[#2f568e]/60"></div>
-          </a>
+          </RouterLink>
           <div class="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-8 md:bottom-12 md:left-12 md:right-12 flex flex-col justify-end items-start space-y-2 sm:space-y-4 md:space-y-6 text-white">
-            <a href="#" class="btn btn-r py-1 px-3 text-sm">Inspiration</a>
+            <a href="#" class="blog-btn blog-btn-r py-1 px-3 text-sm">Inspiration</a>
             <h3 class="text-xl sm:text-3xl md:text-4xl font-semibold">
-              <a href="#">5 Easy Ways You Can Turn Future Into Success</a>
+              <RouterLink to="/blog/posts/1">5 Easy Ways You Can Turn Future Into Success</RouterLink>
             </h3>
             <div class="flex space-x-4 items-center text-sm text-gray-300">
               <a href="#" class="hover:text-rose-400">Katen Doe</a>
@@ -60,12 +60,12 @@
           <div class="flex-grow min-h-0 relative mt-10">
             <div class="flex flex-col space-y-4">
               <div v-for="item in posts.slice(0,4)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
-                <a href="#" class="flex-none w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden">
+                <RouterLink to="/blog/posts/1" class="flex-none w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden">
                   <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
-                </a>
+                </RouterLink>
                 <div class="flex-grow min-w-0">
                   <h3 class="font-semibold color-2 transition-all duration-300 hover:!text-rose-500">
-                    <a href="#">{{item.title}}</a>
+                    <RouterLink to="/blog/posts/1">{{item.title}}</RouterLink>
                   </h3>
                   <p class="mt-2 text-sm">{{format_time(item.created_at)}}</p>
                 </div>

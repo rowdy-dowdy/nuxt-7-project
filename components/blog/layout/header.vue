@@ -42,7 +42,9 @@
       <BlogLayoutContainer>
         <div id="containerHeader" class="flex items-center space-x-12 py-10">
           <div class="logo flex-none color-2">
-            <h1 class="text-4xl font-semibold">Blog <span class="text-rose-500">.</span></h1>
+            <h1 class="text-4xl font-semibold">
+              <RouterLink to="/blog">Blog <span class="text-rose-500">.</span></RouterLink>
+            </h1>
           </div>
 
           <ul class="menu hidden lg:flex">

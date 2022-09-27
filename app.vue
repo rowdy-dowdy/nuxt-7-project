@@ -1,14 +1,20 @@
 <script lang="ts" setup>
-useHead({
-  title: 'Việt Hùng - 7 Project',
-  // or, instead:
-  // titleTemplate: (title) => `My App - ${title}`,
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-  charset: 'utf-8',
-  meta: [
-    { name: 'description', content: 'My 7 front end web projects' }
-  ]
-})
+  useHead({
+    title: 'Việt Hùng - 7 Project',
+    // or, instead:
+    // titleTemplate: (title) => `My App - ${title}`,
+    viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+    charset: 'utf-8',
+    meta: [
+      { name: 'description', content: 'My 7 front end web projects' }
+    ]
+  })
+
+  const nuxtApp = useNuxtApp()
+
+  nuxtApp.hook("page:finish", () => {
+    window.scrollTo(0, 0)
+  })
 </script>
 
 <template>
@@ -67,7 +73,7 @@ html {
   scroll-behavior: smooth;
 }
 
-input {
+input, textarea {
   @apply focus:outline-none;
 }
 </style>

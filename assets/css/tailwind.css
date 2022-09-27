@@ -21,13 +21,13 @@
     @apply !w-full !h-full !fill-current;
   }
 
-  .btn {
-    @apply bg-gradient-to-b bg-[length:auto_200%] hover:bg-bottom from-rose-400 via-rose-500 to-rose-400 text-white p-3 transition-all duration-300 rounded-full;
+  .blog-btn {
+    @apply bg-gradient-to-b bg-[length:auto_200%] hover:bg-bottom from-rose-500 via-rose-400 to-rose-500 text-white p-3 transition-all duration-300 rounded-full;
   }
 }
 
 @layer utilities {
-  .btn-r {
+  .blog-btn-r {
     @apply bg-gradient-to-r bg-[length:200%_auto] hover:bg-right;
   }
 }
