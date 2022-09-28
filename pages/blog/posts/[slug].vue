@@ -9,10 +9,7 @@
 
   // const route = useRoute()
   // console.log(route.params.slug)=
-  const [{ data: post }, { data: posts }] = await Promise.all([
-    useFetch(`/api/blog/posts/slug`),
-    useFetch(`/api/blog/posts`)
-  ])
+  const { data: post } = await useFetch(`/api/blog/posts/slug`)
   
   const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
