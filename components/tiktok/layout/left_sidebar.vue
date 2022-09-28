@@ -49,12 +49,29 @@
     }
   ])
 
+  var tags = [
+    {title: 'suthatla',type: 'tag'},
+    {title: 'mackedoi',type: 'tag'},
+    {title: 'sansangthaydoi',type: 'tag'},
+    {title: 'Yêu Đơn Phương Là Gì (MEE Remix) - Mee Media & h0n',type: 'music'},
+    {title: 'Về Nghe Mẹ Ru - NSND Bach Tuyet & Hứa Kim Tuyền & 14 Casper & Hoàng Dũng',type: 'music'},
+    {title: 'Thiên Thần Tình Yêu - RICKY STAR',type: 'music'},
+    {title: '7749hieuung',type: 'tag'},
+    {title: 'genzlife',type: 'tag'},
+    {title: 'Tình Đã Đầy Một Tim - Huyền Tâm Môn',type: 'music'},
+    {title: 'Thằng Hầu (Thái Hoàng Remix) [Short Version] - Dunghoangpham',type: 'music'}
+  ]
+
+  var sidebar_html = ref<HTMLElement | null>(null)
+
   onMounted(() => {
-    Scrollbar.init(document.querySelector('#left-sidebar'), {});
+    if (sidebar_html.value)
+      Scrollbar.init(sidebar_html.value, {});
   })
 
   onUnmounted(() => {
-    Scrollbar.destroy(document.querySelector('#left-sidebar'));
+    if (sidebar_html.value)
+      Scrollbar.destroy(sidebar_html.value);
   })
 </script>
 
@@ -62,7 +79,7 @@
   <div class="relative w-96">
     <div class="fixed w-[inherit] top-[63px] bottom-0">
       <!-- content -->
-      <div id="left-sidebar" class="relative h-full overflow-auto py-4 -ml-4 pr-4">
+      <div ref="sidebar_html" id="left-sidebar" class="relative h-full overflow-auto py-4 -ml-4 pr-4">
         <!-- main-nav -->
         <div class="main-nav flex flex-col font-semibold text-lg">
           <RouterLink to="/tiktok" class="flex space-x-2 items-center hover:bg-gray-100 rounded px-4 py-2.5">
@@ -106,9 +123,26 @@
               </div>
             </a>
 
-            <a href="#" class="text-sm text-rose-500 pl-4">See less</a>
+            <a href="#" class="text-sm text-rose-500 pl-4">See all</a>
           </div>
         </div>
+
+        <!-- Discover -->
+        <div class="py-4 border-y ml-4">
+          <p class="text-sm text-gray-500">Discover</p>
+          <div class="flex flex-wrap mt-2 text-xs">
+            <a v-for="tag in tags" href="#" class="flex items-center space-x-1 max-w-full px-2 py-1 rounded-full hover:bg-gray-100 border mr-2 mb-2">
+              <span class="flex-none icon">
+                <svg v-if="tag.type == 'music'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M6 18.573c2.206 0 4-1.794 4-4V4.428L19 7.7v7.43a3.953 3.953 0 0 0-2-.557c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4V7a.998.998 0 0 0-.658-.939l-11-4A.999.999 0 0 0 8 3v8.13a3.953 3.953 0 0 0-2-.557c-2.206 0-4 1.794-4 4s1.794 4 4 4z"></path></svg>
+                <svg v-if="tag.type == 'tag'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M16.018 3.815 15.232 8h-4.966l.716-3.815-1.964-.37L8.232 8H4v2h3.857l-.751 4H3v2h3.731l-.714 3.805 1.965.369L8.766 16h4.966l-.714 3.805 1.965.369.783-4.174H20v-2h-3.859l.751-4H21V8h-3.733l.716-3.815-1.965-.37zM14.106 14H9.141l.751-4h4.966l-.752 4z"></path></svg>
+              </span>
+              <span class="flex-grow min-w-0 truncate">{{tag.title}}</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- copyright  -->
+        <p class="text-xs p-4">© 2022 Việt Hùng</p>
       </div>
     </div>
   </div>
@@ -122,4 +156,9 @@
   }
   #left-sidebar .main-nav a.router-link-exact-active svg:nth-child(1) { @apply hidden; }
   #left-sidebar .main-nav a.router-link-exact-active svg:nth-child(2) { @apply inline; }
+
+  :deep(#left-sidebar:hover .scrollbar-track) {
+    opacity: 1;
+    transition-delay: 0s;
+  }
 </style>
