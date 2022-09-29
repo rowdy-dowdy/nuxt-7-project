@@ -1,7 +1,7 @@
 // stores/counter.js
 import { defineStore } from 'pinia'
 
-export const useModelStore = defineStore('model', {
+export const useModalStore = defineStore('blog_modal', {
   state: () => {
     return { 
       overplay: false,

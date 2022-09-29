@@ -7,6 +7,7 @@
     <TiktokLayoutHeader class="sticky top-0 flex-none" />
     
     <NuxtPage class="flex-grow" />
+    <TiktokModalUser />
   </div>
 </template>
 

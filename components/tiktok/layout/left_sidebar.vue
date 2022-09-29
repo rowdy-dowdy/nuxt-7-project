@@ -1,53 +1,10 @@
 <script lang="ts" setup>
   import Scrollbar from 'smooth-scrollbar';
+  import { useModalStore } from "~/stores/tiktok/modal";
 
-  const accounts = ref([
-    {
-      id: 1,
-      name: 'Theanh28 Entertainment',
-      username: 'theanh28entertainment',
-      image: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/65d3c6b1d1e205c75536ccf1f26d552d~c5_100x100.jpeg?x-expires=1664528400&x-signature=cwX9Z5Ql2V6I4XjDTRSQPSHCaMM%3D',
-      followes: '7.4M',
-      likes: '502.2M',
-      confirmed: true
-    },
-    {
-      id: 2,
-      name: 'Tiin.vn',
-      username: 'tiin.vn',
-      image: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/fac92301a36c2275c99f393061ef04ca~c5_100x100.jpeg?x-expires=1664528400&x-signature=dH6VNe5Eaq9t%2FIJt7kzaKOPGn9k%3D',
-      followes: '7.4M',
-      likes: '502.2M',
-      confirmed: true
-    },
-    {
-      id: 3,
-      name: '🔥Đạt Villa🔥',
-      username: 'datvilla94',
-      image: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/be22b8593ea95c8835d47f4b5309ec16~c5_100x100.jpeg?x-expires=1664528400&x-signature=f5ZIHC4sjJdsSbpX75qdokguruI%3D',
-      followes: '7.4M',
-      likes: '502.2M',
-      confirmed: true
-    },
-    {
-      id: 4,
-      name: 'AnNhiên ❤️ BốiBối',
-      username: 'annhien_boiboi',
-      image: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/39911deb09b62b80810dec42c0722bbd~c5_100x100.jpeg?x-expires=1664528400&x-signature=S0x2LvjMEyAVC1eheJOwJ4MiDFc%3D',
-      followes: '7.4M',
-      likes: '502.2M',
-      confirmed: true
-    },
-    {
-      id: 5,
-      name: 'Mạnh Tiến Khôi 🐯',
-      username: 'manhtienkhoi_',
-      image: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/6f742a138c51cf4c6ac049ea6f6ff6b4~c5_100x100.jpeg?x-expires=1664528400&x-signature=q5iO9o0NgXa2dT%2F6VsR6QjMawqY%3D',
-      followes: '7.4M',
-      likes: '502.2M',
-      confirmed: true
-    }
-  ])
+  const modalStore = useModalStore()
+
+  const { data: accounts } = await useFetch(`/api/tiktok/users`)
 
   var tags = [
     {title: 'suthatla',type: 'tag'},
@@ -115,10 +72,20 @@
         <div class="py-4">
           <p class="text-sm text-gray-500 font-medium pl-4">Suggested accounts</p>
           <div class="flex flex-col mt-2">
-            <a v-for="item in accounts" :key="item.id" href="#" class="flex items-center space-x-2 p-2 ml-2 rounded hover:bg-gray-100">
+            <a 
+              v-for="item in accounts" :key="item.id" href="#" 
+              class="flex items-center space-x-2 p-2 ml-2 rounded hover:bg-gray-100"
+              @mouseenter="($el) => modalStore.showModalUser({el: $el.target as HTMLElement, id: item.id})"
+              @mouseleave="modalStore.hideModalUser()"
+            >
               <img :src="item.image" :alt="item.name" class="flex-none w-8 h-8 rounded-full" loading="lazy">
               <div class="flex-grow min-w-0">
-                <h3 class="font-semibold truncate">{{item.username}}</h3>
+                <h3 class="font-semibold truncate flex items-center space-x-1">
+                  <span>{{item.username}}</span>
+                  <span class="icon w-4 h-4 rounded-full bg-sky-500 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path></svg>
+                  </span>
+                </h3>
                 <p class="text-sm text-gray-500">{{item.name}}</p>
               </div>
             </a>

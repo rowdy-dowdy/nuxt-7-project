@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-  import { useModelStore } from "~/stores/model";
+  import { useModalStore } from "~~/stores/blog/modal";
 
-  const modelStore = useModelStore()
+  const modalStore = useModalStore()
 
   let header_down = ref(false)
   let header_height = ref<number>(0)
@@ -117,10 +117,10 @@
             </div>
 
             <div class="flex space-x-3">
-              <a href="#" class="button-icon" @click.prevent="modelStore.toggleSearch()">
+              <a href="#" class="button-icon" @click.prevent="modalStore.toggleSearch()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
               </a>
-              <a href="#" class="button-icon" @click.prevent="modelStore.toggleMenu()">
+              <a href="#" class="button-icon" @click.prevent="modalStore.toggleMenu()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
               </a>
             </div>

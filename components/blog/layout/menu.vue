@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-  import { useModelStore } from "~/stores/model";
+  import { useModalStore } from "~~/stores/blog/modal";
 
-  const modelStore = useModelStore()
+  const modalStore = useModalStore()
 
   let show = ref(false)
 </script>

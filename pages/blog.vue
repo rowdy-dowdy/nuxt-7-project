@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-  import { useModelStore } from "~/stores/model";
+  import { useModalStore } from "~~/stores/blog/modal";
 
-  const modelStore = useModelStore()
+  const modalStore = useModalStore()
 </script>
 
 <template>
@@ -12,7 +12,7 @@
 
     <BlogLayoutFooter class="flex-none" />
     
-    <div class="overlay" :class="{'!block': modelStore.$state.overplay}" @click.self="modelStore.hidden()"></div>
+    <div class="overlay" :class="{'!block': modalStore.$state.overplay}" @click.self="modalStore.hidden()"></div>
     <BlogLayoutModalSearch />
     <BlogLayoutModalMenu />
   </div>
