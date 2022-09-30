@@ -1,11 +1,12 @@
 <script lang="ts" setup>
   const props = defineProps({
-    path: String
+    path: String,
+    vref: null
   })
 </script>
 
 <template>
-  <div class="border-b py-4">
+  <div ref="vref" class="border-b py-4">
     <div class="flex items-start space-x-4">
       <a href="#" class="w-16 h-16 rounded-full border overflow-hidden">
         <img
