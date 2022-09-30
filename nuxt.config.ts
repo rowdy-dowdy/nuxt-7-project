@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@vueuse/nuxt',
   ],
   plugins: ['~/plugins/vue-collapse.ts'],
 })

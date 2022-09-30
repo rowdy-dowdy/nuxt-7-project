@@ -26,7 +26,7 @@
 </script>
 
 <template>
-  <div class="py-2 shadow">
+  <div class="py-2 shadow z-50 bg-white">
     <TiktokLayoutContainer>
       <div class="flex items-center justify-between">
         <RouterLink to="/tiktok">

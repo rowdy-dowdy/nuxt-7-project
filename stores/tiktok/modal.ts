@@ -31,6 +31,8 @@ export const useModalStore = defineStore('tiktok_modal', {
 
       this.user.info = await $fetch(`/api/tiktok/users/${id}`)
 
+      // if (this.user.wait) return
+
       let position = el.getBoundingClientRect()
 
       this.user.x    = position.left
@@ -50,6 +52,8 @@ export const useModalStore = defineStore('tiktok_modal', {
 
       if (this.user.wait)
         this.user.show = false
+      
+      this.user.wait = false
     },
   },
 })
