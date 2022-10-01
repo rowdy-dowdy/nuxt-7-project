@@ -1,12 +1,20 @@
 <script lang="ts" setup>
+  import { useTiktokStore } from "~/stores/tiktok/tiktok";
   const props = defineProps({
-    path: String,
-    vref: null
+    path: String
+  })
+
+  const tiktokStore = useTiktokStore()
+  const item_ref = ref<HTMLElement | null>(null)
+
+  onMounted(() => {
+    if (item_ref.value && tiktokStore.observer)
+      tiktokStore.observer.observe(item_ref.value)
   })
 </script>
 
 <template>
-  <div ref="vref" class="border-b py-4">
+  <div ref="item_ref" class="border-b py-4" :data-path="path">
     <div class="flex items-start space-x-4">
       <a href="#" class="w-16 h-16 rounded-full border overflow-hidden">
         <img

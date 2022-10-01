@@ -14,7 +14,21 @@
   const video = ref<HTMLVideoElement | null>(null)
 
   const playing_video = ref(false)
-  const togleVideo = () => {
+  const togleVideo = (data = undefined) => {
+    // pass data to toggle video
+    if (data == true) {
+      video.value.play();
+      playing_video.value = true
+      videoStore.video_playing = props.path
+      return
+    }
+    else if ( data == false) {
+      video.value.pause()
+      playing_video.value = false
+      return
+    }
+
+    // toggle video
     if (video.value.paused) {
       video.value.play();
       playing_video.value = true
@@ -93,10 +107,12 @@
 </script>
 
 <template>
-  <div class="relative block w-max max-w-[650px] max-h-[650px] rounded overflow-hidden group">
-    <video ref="video" :src="path" alt="" class="max-w-[inherit] max-h-[inherit]" loop></video>
+  <div class="relative w-max max-w-[650px] max-h-[650px] rounded overflow-hidden group">
+    <div class="w-full h-full aspect-[56.25/100] bg-gray-100 max-w-[inherit] max-h-[inherit]">
+      <video ref="video" :src="path" alt="" class="max-w-[inherit] max-h-[inherit]" loop></video>
+    </div>
 
-    <a href="#" class="absolute w-full h-full top-0 left-0"></a>
+    <a href="#" class="absolute w-full h-full top-0 left-0"><span v-if="video_playing == path" class="text-rose-500 bg-white">active</span></a>
 
     <div class="absolute left-5 right-5 bottom-6 flex items-center justify-between text-white pointer-events-none">
       <span 
