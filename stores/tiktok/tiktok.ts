@@ -6,22 +6,27 @@ import { useVideoStore } from "~/stores/tiktok/video";
 export const useTiktokStore = defineStore('tiktok', () => {
   const videoStore = useVideoStore()
 
+  var timeout = null
+
   const defaultObserver = () => {
     var temp_observer = ref<IntersectionObserver | null>(null)
   
     if (process.client) {
-      // console.log('client')
+      // de tam thoi, neu 1 man hinh co tu 2 item tro len se hoat dong k chinh xac
       temp_observer.value = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
-          if (entry.intersectionRatio > 0) {
-            console.log('in the view', (entry.target as HTMLElement).dataset.path);
-            videoStore.video_playing = (entry.target as HTMLElement).dataset.path
-          } 
-          else {
-            console.log('out of view');
+          if (entry.isIntersecting) {
+            // console.log(entry.intersectionRatio)
+            clearTimeout(timeout)
+            timeout = setTimeout(() => {
+              videoStore.video_playing = (entry.target as HTMLElement).dataset.path
+            }, 300);
           }
+          // else {
+          //   console.log('out', (entry.target as HTMLElement).dataset.path);
+          // }
         });
-      }, {threshold: .5});
+      }, { threshold: 0.6});
     }
   
     return temp_observer

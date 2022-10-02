@@ -1,11 +1,26 @@
 <script lang="ts" setup>
+  import { storeToRefs } from 'pinia'
   import { useTiktokStore } from "~/stores/tiktok/tiktok";
+  import { useVideoStore } from "~/stores/tiktok/video";
   const props = defineProps({
     path: String
   })
 
   const tiktokStore = useTiktokStore()
+  const videoStore = useVideoStore()
+
+  const { next_will_video } = storeToRefs(videoStore)
+
   const item_ref = ref<HTMLElement | null>(null)
+
+  watch(next_will_video, v => {
+    if (v == props.path)
+      scrollToElement()
+  })
+
+  const scrollToElement = () => {
+    item_ref.value.scrollIntoView({block: "center"});
+  }
 
   onMounted(() => {
     if (item_ref.value && tiktokStore.observer)

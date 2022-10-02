@@ -1,19 +1,16 @@
 // stores/counter.js
 import { defineStore } from 'pinia'
 
-export const useVideoStore = defineStore('tiktok_video', {
-  state: () => {
-    return { 
-      video_playing: '/api/storage/videos/DvHe9DU5.mp4'
-    }
-  },
-  // could also be defined as
-  // state: () => ({ count: 0 })
-  actions: {
-    // async changeVolume(data: number) {
-    //   if (data >= 0 || data <= 1) {
-    //     this.volume = data
-    //   }
-    // },
-  },
+export const useVideoStore = defineStore('tiktok_video', () => {
+  const video_playing = ref('')
+  const next_will_video = ref('')
+  const muted = ref(true)
+
+  // const next
+
+  return {
+    video_playing,
+    next_will_video,
+    muted
+  }
 })

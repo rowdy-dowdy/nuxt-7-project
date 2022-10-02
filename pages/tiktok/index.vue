@@ -1,15 +1,45 @@
 <script setup lang="ts">
   import { useTiktokStore } from "~/stores/tiktok/tiktok";
-  const {data: videos} = useFetch('/api/tiktok/videos')
+  import { useVideoStore } from "~/stores/tiktok/video";
+  const  {data: videos } = useFetch('/api/tiktok/videos')
 
   const tiktokStore = useTiktokStore()
+  const videoStore = useVideoStore()
+
+  const nextVideo = () => {
+    let index = videos.value.findIndex(v => v.path == videoStore.video_playing)
+
+    // neu video dang phat chua phai video cuoi cung
+    if (index >= 0 && index < videos.value.length - 1) {
+      videoStore.next_will_video = videos.value[index + 1].path
+    }
+  }
+
+  const prevVideo = () => {
+    let index = videos.value.findIndex(v => v.path == videoStore.video_playing)
+
+    // neu video dang phat khong phai dau tien
+    if (index > 0 && index < videos.value.length) {
+      videoStore.next_will_video = videos.value[index - 1].path
+    }
+  }
+
+  const eventKeydownVideo = (e) => {
+    if (e.key == "ArrowDown") {
+      nextVideo()
+    }
+    else if (e.key == "ArrowUp") {
+      prevVideo()
+    }
+  }
 
   onMounted(() => {
+    window.alert('fixed modal user left sidebar')
+    window.addEventListener('keydown', eventKeydownVideo)
   })
 
   onUnmounted(() => {
-    if (tiktokStore.observer)
-      tiktokStore.observer.disconnect()
+    window.removeEventListener('keydown', eventKeydownVideo)
   })
 </script>
 

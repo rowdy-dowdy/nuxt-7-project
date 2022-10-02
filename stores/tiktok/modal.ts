@@ -47,7 +47,7 @@ export const useModalStore = defineStore('tiktok_modal', {
       await new Promise((res,rej) => {
         setTimeout(() => {
           res(false)
-        }, 500);
+        }, 100);
       })
 
       if (this.user.wait)

@@ -9,16 +9,11 @@
       { name: 'description', content: 'My 7 front end web projects' }
     ]
   })
-
-  const nuxtApp = useNuxtApp()
-
-  nuxtApp.hook("page:finish", () => {
-    window.scrollTo(0, 0)
-  })
 </script>
 
 <template>
   <NuxtLayout>
+    <NuxtLoadingIndicator />
     <NuxtPage />
   </NuxtLayout>
 </template>
