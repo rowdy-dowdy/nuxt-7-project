@@ -2,11 +2,6 @@
   import { useModalStore } from "~/stores/tiktok/modal";
 
   const modalStore = useModalStore()
-
-  const hoverModal = () => {
-    modalStore.user.show = true
-    modalStore.user.wait = false
-  }
 </script>
 
 <template>
@@ -14,7 +9,7 @@
     <div 
       v-if="modalStore.user.show" 
       class="fixed"
-      @mouseenter="hoverModal"
+      @mouseenter="modalStore.hoverModal()"
       @mouseleave="modalStore.hideModalUser()"
       :style="{'left': modalStore.user.x + 'px', 'top': modalStore.user.y + 'px'}"
     >

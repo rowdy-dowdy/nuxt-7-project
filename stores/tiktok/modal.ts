@@ -11,49 +11,60 @@ type TiktokUser = {
   confirmed: boolean;
 }
 
-export const useModalStore = defineStore('tiktok_modal', {
-  state: () => {
-    return { 
-      user: {
-        show: false,
-        wait: false,
-        x: null as number,
-        y: null as number,
-        info: null as TiktokUser
-      }
-    }
-  },
-  // could also be defined as
-  // state: () => ({ count: 0 })
-  actions: {
-    async showModalUser({el, id}: {el:HTMLElement | null, id: number | null}) {
-      if (!el) return
+export const useModalStore = defineStore('tiktok_modal', () => {
+  const user = ref({
+    show: false,
+    wait: false,
+    x: null as number,
+    y: null as number,
+    info: null
+  })
 
-      this.user.info = await $fetch(`/api/tiktok/users/${id}`)
+  var show_timeout = null
+  var hide_timeout = null
 
-      // if (this.user.wait) return
+  const showModalUser = ({el, id}: {el:HTMLElement | null, id: number | null}) => {
+    user.value.wait = true
+
+    clearTimeout(show_timeout)
+    clearTimeout(hide_timeout)
+    show_timeout = setTimeout(async () => {
+      if (!el || !user.value.wait) return
+
+      user.value.info = await $fetch(`/api/tiktok/users/${id}`)
+      // if (user.value.wait) return
 
       let position = el.getBoundingClientRect()
 
-      this.user.x    = position.left
-      this.user.y    = position.bottom
-      this.user.show = true
-      this.user.wait = false
-    },
+      user.value.x    = position.left
+      user.value.y    = position.bottom
+      user.value.show = true
+      user.value.wait = false
+    }, 300);
+  }
 
-    async hideModalUser() {
-      this.user.wait = true
+  const hoverModal = () => {
+    clearTimeout(hide_timeout)
+    user.value.show = true
+    user.value.wait = false
+  }
 
-      await new Promise((res,rej) => {
-        setTimeout(() => {
-          res(false)
-        }, 100);
-      })
-
-      if (this.user.wait)
-        this.user.show = false
+  const hideModalUser = async () => {
+    clearTimeout(hide_timeout)
+    // clearTimeout(show_timeout)
+    hide_timeout = setTimeout(() => {
+      user.value.show = false
       
-      this.user.wait = false
-    },
-  },
+      if (user.value.wait) {
+        user.value.wait = false
+      }
+    }, 100)
+  }
+
+  return {
+    user,
+    showModalUser,
+    hoverModal,
+    hideModalUser
+  }
 })

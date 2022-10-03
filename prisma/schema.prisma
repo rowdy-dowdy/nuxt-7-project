@@ -5,12 +5,41 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
 datasource db {
   provider = "sqlite"
-  url      = env("file:./db/dev.db")
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String?
+  username   String   @unique
+  image      String
+  password   String
+  created_at DateTime @default(now())
+
+  // tiktok
+  followers Follows[] @relation("following")
+  following Follows[] @relation("follower")
+  videos    Videos[]
+}
+
+model Follows {
+  follower    User @relation("follower", fields: [followerId], references: [id])
+  followerId  Int
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId Int
+
+  @@id([followerId, followingId])
+}
+
+model Videos {
+  id      Int     @id @default(autoincrement())
+  path    String?
+  caption String?
+  publish Boolean @default(false)
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
 }

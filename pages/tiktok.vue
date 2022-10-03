@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col text-[#333]">
+  <div class="w-full h-full flex flex-col text-[#222]">
     <TiktokLayoutHeader class="sticky top-0 flex-none" />
     
     <NuxtPage class="flex-grow" />

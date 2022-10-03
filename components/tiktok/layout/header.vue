@@ -23,11 +23,20 @@
       search(v)
     }, 500);
   })
+
+  const router = useRouter()
+  const route = useRoute()
+
+  const gotoUpload = () => {
+    router.push({ path: "/tiktok/upload" });
+  }
+
+  const is_full_container = computed(() => route.fullPath.split('/')[2] == 'upload')
 </script>
 
 <template>
   <div class="py-2 shadow z-50 bg-white">
-    <TiktokLayoutContainer>
+    <TiktokLayoutContainer :class="{'!max-w-full': is_full_container}">
       <div class="flex items-center justify-between">
         <RouterLink to="/tiktok">
           <svg height="42" width="118" alt="TikTok">
@@ -78,7 +87,10 @@
         </div>
 
         <div class="flex-none flex items-center space-x-3 font-medium">
-          <button class="hidden sm:flex items-center space-x-1 bg-white hover:bg-gray-100 pl-2 pr-4 py-2 border">
+          <button 
+            class="hidden sm:flex items-center space-x-1 bg-white hover:bg-gray-100 pl-2 pr-4 py-2 border"
+            @click.prevent="gotoUpload"
+            >
             <span class="flex-none icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
             </span>

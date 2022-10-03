@@ -19,7 +19,16 @@ export const useTiktokStore = defineStore('tiktok', () => {
             // console.log(entry.intersectionRatio)
             clearTimeout(timeout)
             timeout = setTimeout(() => {
-              videoStore.video_playing = (entry.target as HTMLElement).dataset.path
+              let item = (entry.target as HTMLElement)
+              let video_item = item.querySelector('.video-item') as HTMLVideoElement
+
+              if (video_item) {
+                let src = video_item.dataset.src
+                if (!video_item.src)
+                  video_item.src = src
+                videoStore.video_playing = src
+              }
+              
             }, 300);
           }
           // else {

@@ -29,7 +29,7 @@
 </script>
 
 <template>
-  <div ref="item_ref" class="border-b py-4" :data-path="path">
+  <div ref="item_ref" class="border-b py-4">
     <div class="flex items-start space-x-4">
       <a href="#" class="w-16 h-16 rounded-full border overflow-hidden">
         <img

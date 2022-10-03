@@ -101,7 +101,7 @@
 <template>
   <div class="relative w-max max-w-[650px] max-h-[60vh] rounded overflow-hidden group">
     <div class="w-full h-full aspect-[56.25/100] bg-gray-100 max-w-[inherit] max-h-[inherit]">
-      <video ref="video" :src="path" alt="" class="max-w-[inherit] max-h-[inherit]" loop :muted="muted"></video>
+      <video ref="video" :data-src="path" alt="" class="video-item max-w-[inherit] max-h-[inherit]" loop :muted="muted"></video>
     </div>
 
     <a href="#" class="absolute w-full h-full top-0 left-0"></a>

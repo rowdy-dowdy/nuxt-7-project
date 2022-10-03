@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import { useTiktokStore } from "~/stores/tiktok/tiktok";
   import { useVideoStore } from "~/stores/tiktok/video";
+  import { useVirtualList, useInfiniteScroll } from "@vueuse/core";
+
   const  {data: videos } = useFetch('/api/tiktok/videos')
 
   const tiktokStore = useTiktokStore()
@@ -34,7 +36,6 @@
   }
 
   onMounted(() => {
-    window.alert('fixed modal user left sidebar')
     window.addEventListener('keydown', eventKeydownVideo)
   })
 
