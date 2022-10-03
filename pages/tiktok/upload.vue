@@ -17,7 +17,22 @@
 
     if (file.type == 'video/mp4' || file.type == 'video/webm') {
       console.log(file)
+      const formData  = new FormData();
+      formData.append("filefield", file);
+      const {data} = useFetch('/api/tiktok/videos/add', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          // 'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      console.log('upload', data.value)
     }
+  }
+
+  const upload = async () => {
+
   }
 
   const events = ['dragenter', 'dragleave', 'dragover', 'drop']
