@@ -18,8 +18,8 @@
     if (file.type == 'video/mp4' || file.type == 'video/webm') {
       console.log(file)
       const formData  = new FormData();
-      formData.append("filefield", file);
-      const {data} = useFetch('/api/tiktok/videos/add', {
+      formData.append("file", file);
+      const {data} = await useFetch('/api/tiktok/videos/add', {
         method: 'POST',
         body: formData,
         headers: {
@@ -48,12 +48,28 @@
   onUnmounted(() => {
     events.forEach(v => document.body.removeEventListener(v, eventDragAndDrop))
   })
+
+  const createUser = async() => {
+    const {data: user} = await useFetch('/api/tiktok/users/add', {
+      method: 'post',
+      body: JSON.stringify({
+        email: 'viet.hung.2898@gmail.com',
+        image: '/api/storage/images/rose.png',
+        username: 'viet.hung.it',
+        password: 'password',
+        name: 'Việt Hùng'
+      })
+
+    })
+    console.log(user.value)
+  }
 </script>
 
 <template>
   <div class="w-full h-full bg-gray-100">
     <TiktokLayoutContainer class="h-full rounded-lg bg-white shadow mt-6">
       <div class="w-full h-full py-6 lg:px-8">
+        <button @click.prevent="createUser">click</button>
         <h4 class="text-2xl font-semibold">Upload video</h4>
         <p class="mt-4 text-gray-500">Post a video to your account</p>
 
