@@ -19,6 +19,7 @@
       console.log(file)
       const formData  = new FormData();
       formData.append("file", file);
+      // formData.append('')
       const {data} = await useFetch('/api/tiktok/videos/add', {
         method: 'POST',
         body: formData,
@@ -69,14 +70,14 @@
   <div class="w-full h-full bg-gray-100">
     <TiktokLayoutContainer class="h-full rounded-lg bg-white shadow mt-6">
       <div class="w-full h-full py-6 lg:px-8">
-        <button @click.prevent="createUser">click</button>
+        <!-- <button @click.prevent="createUser">click</button> -->
         <h4 class="text-2xl font-semibold">Upload video</h4>
         <p class="mt-4 text-gray-500">Post a video to your account</p>
 
         <div class="mt-12 flex space-x-6">
           <div 
-            class="border-2 border-dashed border-gray-300 hover:border-rose-500 px-10 py-16 cursor-pointer rounded-lg text-center"
-            :class="{'!border-rose-500': entering}"
+            class="border-2 border-dashed border-gray-300 hover:border-rose-500 hover:bg-gray-100 px-10 py-16 cursor-pointer rounded-lg text-center"
+            :class="{'!border-rose-500 !bg-gray-100': entering}"
             @drop.prevent="handleDrop"
             @dragenter="entering = true"
             @dragleave="entering = false"
@@ -85,7 +86,7 @@
               ref="file_upload" 
               @input="handleDrop"
               type="file" name="file_upload" id="file_upload" accept="video/*" class="sr-only">
-            <div :class="{'pointer-events-none': entering}">
+            <div class="pointer-events-none">
               <span class="icon w-12 h-12 text-gray-500 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M18.944 11.112C18.507 7.67 15.56 5 12 5 9.244 5 6.85 6.611 5.757 9.15 3.609 9.792 2 11.82 2 14c0 2.757 2.243 5 5 5h11c2.206 0 4-1.794 4-4a4.01 4.01 0 0 0-3.056-3.888zM13 14v3h-2v-3H8l4-5 4 5h-3z"></path></svg>
               </span>
@@ -95,13 +96,17 @@
               <p class="mt-2 text-sm text-gray-500">720x1280 resolution or higher</p>
               <p class="mt-2 text-sm text-gray-500">Up to 10 minutes</p>
               <p class="mt-2 text-sm text-gray-500">Less than 2GB</p>
-
-              <button 
-                class="mt-8 w-full px-4 py-2 rounded font-semibold text-white bg-rose-500 hover:bg-rose-400"
-                @click.prevent="file_upload.click()"
-                >Select file</button>
             </div>
+
+            <button 
+              :class="{'pointer-events-none': entering}"
+              class="mt-8 w-full px-4 py-2 rounded font-semibold text-white bg-rose-500 hover:bg-rose-400"
+              @click.prevent="file_upload.click()"
+              >Select file</button>
           </div>
+
+          <!-- right -->
+          
         </div>
       </div>
     </TiktokLayoutContainer>
