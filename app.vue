@@ -68,7 +68,7 @@
     scroll-behavior: smooth;
   }
 
-  input, textarea, button {
+  input, textarea, button, [contenteditable] {
     @apply focus:outline-none;
   }
 </style>

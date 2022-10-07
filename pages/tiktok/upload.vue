@@ -36,10 +36,92 @@
 
   }
 
+  // event drop and drag of upload
   const events = ['dragenter', 'dragleave', 'dragover', 'drop']
-
   const eventDragAndDrop = (e: Event) => {
     e.preventDefault()
+  }
+
+  // value form
+  var caption = ref('')
+  var caption_html = ref<HTMLElement>(null)
+  const inputCaption = (e: KeyboardEvent | null, data = undefined) => {
+    if (!caption_html.value) return
+
+    if (data) {
+      if (caption.value.length >= 150) return
+
+      caption_html.value.innerText = caption.value = caption.value + data
+      // caption_html.value.focus()
+      let range = document.createRange()
+      let sel = window.getSelection()
+
+      let last_child = caption_html.value.lastChild
+
+      range.setStart(last_child, last_child.textContent.length)
+      range.collapse(true)
+      
+      sel.removeAllRanges()
+      sel.addRange(range)
+      return
+    }
+    else {
+      const isValidShiftEnter = (e.shiftKey && e.keyCode == 13 ) || e.keyCode == 13;
+
+      if (isValidShiftEnter) {
+        e.preventDefault()
+        return
+      }
+
+      caption.value = (e.target as HTMLElement).innerText.replace(/\n/g, '')
+
+      // Ctrl + v
+      const isValidShortcut = (e.ctrlKey && e.keyCode != 86 );
+      /* Backspace - Delete - Arrow Keys - Ctrl - Shift */
+      const isValidKeyCode = [8, 16, 17, 37, 38, 39, 40, 46].includes(e.keyCode);
+
+      // if (isValidShortcut) { 
+      //   caption.value = ''
+      // }
+
+
+      console.log(isValidShiftEnter)
+
+      if ( !isValidKeyCode && !isValidShortcut ) {
+        if (caption.value.length == 150) {
+          e.preventDefault();
+          return
+        }
+        else if (caption.value.length > 150) {
+          caption_html.value.innerText = caption.value = caption_html.value.innerText
+          // caption_html.value.focus()
+          let range = document.createRange()
+          let sel = window.getSelection()
+
+          let last_child = caption_html.value.lastChild
+
+          range.setStart(last_child, last_child.textContent.length)
+          range.collapse(true)
+          
+          sel.removeAllRanges()
+          sel.addRange(range)
+
+          e.preventDefault();
+          return
+        }
+      }
+
+    }
+    // caption.value = (e.target as HTMLElement).innerText.replace(/\n/g, '')
+    if (/^.$/u.test(e.key) && caption.value.length >= 150) {
+      if (!(e.ctrlKey && e.key == 'a'))
+        e.preventDefault()
+    }
+    console.log(e, caption.value, /^.$/u.test(e.key))
+  }
+
+  const focusInputCaption = () => {
+    caption_html.value.focus()
   }
 
   onMounted(() => {
@@ -49,21 +131,6 @@
   onUnmounted(() => {
     events.forEach(v => document.body.removeEventListener(v, eventDragAndDrop))
   })
-
-  const createUser = async() => {
-    const {data: user} = await useFetch('/api/tiktok/users/add', {
-      method: 'post',
-      body: JSON.stringify({
-        email: 'viet.hung.2898@gmail.com',
-        image: '/api/storage/images/rose.png',
-        username: 'viet.hung.it',
-        password: 'password',
-        name: 'Việt Hùng'
-      })
-
-    })
-    console.log(user.value)
-  }
 </script>
 
 <template>
@@ -74,9 +141,9 @@
         <h4 class="text-2xl font-semibold">Upload video</h4>
         <p class="mt-4 text-gray-500">Post a video to your account</p>
 
-        <div class="mt-12 flex space-x-6">
+        <div class="mt-16 flex space-x-6">
           <div 
-            class="border-2 border-dashed border-gray-300 hover:border-rose-500 hover:bg-gray-100 px-10 py-16 cursor-pointer rounded-lg text-center"
+            class="flex-none border-2 border-dashed border-gray-300 hover:border-rose-500 hover:bg-gray-100 px-10 py-16 cursor-pointer rounded-lg text-center"
             :class="{'!border-rose-500 !bg-gray-100': entering}"
             @drop.prevent="handleDrop"
             @dragenter="entering = true"
@@ -106,7 +173,19 @@
           </div>
 
           <!-- right -->
-          
+          <div class="flex-grow min-w-0 -mt-7">
+            <div class="flex justify-between">
+              <h5 class="font-medium">Caption</h5>
+              <span class="text-gray-500 text-sm">{{caption.length}} / 150</span>
+            </div>
+            <div class="mt-1.5 flex items-stretch space-x-3 border rounded focus-within:border-rose-500 px-4 py-2">
+              <div class="flex-grow min-w-0 inline-flex cursor-text break-all" @click.prevent="focusInputCaption">
+                <span ref="caption_html" @keydown="inputCaption" contenteditable></span>
+              </div>
+              <span class="flex-none font-bold cursor-pointer font-sans text-lg select-none" @mousedown.prevent="inputCaption(null, '@')">@</span>
+              <span class="flex-none font-bold cursor-pointer font-sans text-lg select-none" @mousedown.prevent="inputCaption(null, '#')">#</span>
+            </div>
+          </div>
         </div>
       </div>
     </TiktokLayoutContainer>
