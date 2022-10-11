@@ -24,6 +24,14 @@
   .blog-btn {
     @apply bg-gradient-to-b bg-[length:auto_200%] hover:bg-bottom from-rose-500 via-rose-400 to-rose-500 text-white p-3 transition-all duration-300 rounded-full;
   }
+
+  .h-center {
+    @apply flex flex-col after:content-[''] after:flex-grow before:content-[''] before:flex-grow;
+  }
+
+  .bg-full {
+    @apply absolute w-full h-full top-0 left-0;
+  }
 }
 
 @layer utilities {

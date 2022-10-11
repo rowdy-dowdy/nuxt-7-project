@@ -66,7 +66,7 @@
       return
     }
     else {
-      const isValidShiftEnter = (e.shiftKey && e.keyCode == 13 ) || e.keyCode == 13;
+      const isValidShiftEnter = (e.shiftKey && e.key == 'Enter' ) || e.key == 'Enter';
 
       if (isValidShiftEnter) {
         e.preventDefault()
@@ -76,9 +76,9 @@
       caption.value = (e.target as HTMLElement).innerText.replace(/\n/g, '')
 
       // Ctrl + v
-      const isValidShortcut = (e.ctrlKey && e.keyCode != 86 );
+      const isValidShortcut = (e.ctrlKey && e.key != 'v' );
       /* Backspace - Delete - Arrow Keys - Ctrl - Shift */
-      const isValidKeyCode = [8, 16, 17, 37, 38, 39, 40, 46].includes(e.keyCode);
+      const isValidKeyCode = ['Backspace', 'Shift', 'Control', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'Delete'].includes(e.key);
 
       // if (isValidShortcut) { 
       //   caption.value = ''
