@@ -1,9 +1,9 @@
-import { useModalStore } from "~~/stores/blog/modal";
+import { useUserStore } from "~~/stores/user";
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  const modalStore = useModalStore()
+  const userStore = useUserStore()
 
-  // if (categories.findIndex(v => v === to.params.slug) < 0) {
-  //   return navigateTo('/blog')
-  // }
+  if (!userStore.isLogin) {
+    return navigateTo('/')
+  }
 })
