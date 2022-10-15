@@ -23,13 +23,16 @@
     "@types/multer": "^1.4.7",
     "@vueuse/core": "^9.3.0",
     "@vueuse/nuxt": "^9.3.0",
+    "bcrypt": "^5.1.0",
     "busboy": "^1.6.0",
     "crypto": "^1.0.1",
     "fluent-ffmpeg": "^2.1.2",
     "formidable": "v3",
+    "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "prisma": "^4.3.1",
     "smooth-scrollbar": "^8.8.1",
-    "swiper": "^8.4.2"
+    "swiper": "^8.4.2",
+    "validator": "^13.7.0"
   }
 }
