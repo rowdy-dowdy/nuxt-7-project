@@ -1,37 +1,41 @@
 <script setup lang="ts">
-  var search_header = ref('')
-  var load_sesarch = ref(false)
-  var search_modal = ref(false)
-  var more_modal = ref(false)
+import { useUserStore } from '~~/stores/user';
 
-  const search = async (text) => {
-    load_sesarch.value = true
-    await new Promise((res, rej) => {
-      setTimeout(() => {
-        res(1)
-      }, 300);
-    })
+var search_header = ref('')
+var load_sesarch = ref(false)
+var search_modal = ref(false)
+var more_modal = ref(false)
 
-    load_sesarch.value = false
-  }
+const userStore = useUserStore()
 
-  var timeout = null
-  watch(search_header, (v) => {
-    clearTimeout(timeout)
-
-    timeout = setTimeout(() => {
-      search(v)
-    }, 500);
+const search = async (text) => {
+  load_sesarch.value = true
+  await new Promise((res, rej) => {
+    setTimeout(() => {
+      res(1)
+    }, 300);
   })
 
-  const router = useRouter()
-  const route = useRoute()
+  load_sesarch.value = false
+}
 
-  const gotoUpload = () => {
-    router.push({ path: "/tiktok/upload" });
-  }
+var timeout = null
+watch(search_header, (v) => {
+  clearTimeout(timeout)
 
-  const is_full_container = computed(() => route.fullPath.split('/')[2] == 'upload')
+  timeout = setTimeout(() => {
+    search(v)
+  }, 500);
+})
+
+const router = useRouter()
+const route = useRoute()
+
+const gotoUpload = () => {
+  router.push({ path: "/tiktok/upload" });
+}
+
+const is_full_container = computed(() => route.fullPath.split('/')[2] == 'upload')
 </script>
 
 <template>
@@ -97,11 +101,12 @@
             <span>Upload</span>
           </button>
 
-          <button class="bg-rose-500 hover:bg-rose-400 text-white px-8 py-2 rounded">Login</button>
+          <button v-show="!userStore.isLogin" class="bg-rose-500 hover:bg-rose-400 text-white px-8 py-2 rounded">Login</button>
 
           <div class="relative" v-click-outside="() => more_modal = false">
             <span class="icon p-2 cursor-pointer" @click="more_modal = true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+              <svg v-show="!userStore.isLogin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+              <img v-if="userStore.isLogin" :src="userStore.user.image" :alt="userStore.user.name">
             </span>
 
             <Transition name="modal">
@@ -122,6 +127,13 @@
                   </a>
 
                   <a href="#" class="flex items-center space-x-2 py-2 px-4 hover:bg-gray-100">
+                    <span class="flex-none icon w-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="12" cy="6" r="2"></circle><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="12" r="2"></circle><circle cx="12" cy="18" r="2"></circle></svg>
+                    </span>
+                    <span class="truncate">Keyboard shortcut</span>
+                  </a>
+
+                  <a v-show="!userStore.isLogin" href="#" class="flex items-center space-x-2 py-2 px-4 hover:bg-gray-100 border-t">
                     <span class="flex-none icon w-4">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="12" cy="6" r="2"></circle><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="12" r="2"></circle><circle cx="12" cy="18" r="2"></circle></svg>
                     </span>

@@ -1,7 +1,54 @@
 <script setup lang="ts">
+import { useUserStore } from '~~/stores/user';
+
+const userStore = useUserStore()
+const route = useRoute()
+const router = useRouter()
+
 const email_input    = ref('')
 const password_input = ref('')
 const is_remember    = ref(false)
+
+var errors = ref({
+  email: '',
+  password: ''
+})
+var loading = ref(false)
+
+const login = async () => {
+  try {
+    if (loading.value) return
+    loading.value = true
+    errors.value = {
+      email: '',
+      password: ''
+    }
+
+    const { user } = await $fetch('/api/auth/login', {
+      method: 'post',
+      body: {
+        email: email_input,
+        password: password_input,
+        remember: is_remember
+      }
+    })
+
+    userStore.changeUser(user)
+    
+    router.push({ path: route.query?.redirect_url as string || '/' })
+
+  } catch (error) {
+    if (error.response?.status == 404) {
+      errors.value.email = error.response?.statusText
+    }
+    else if (error.response?.status == 401) {
+      errors.value.password = error.response?.statusText
+    }
+  } finally {
+    console.log('ok')
+    loading.value = false
+  }
+}
 
 </script>
 
@@ -22,8 +69,8 @@ const is_remember    = ref(false)
         <h3 class="mt-4 text-3xl text-center font-semibold">Hello Again!</h3>
         <p class="mt-2 text-gray-400 text-sm text-center">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
 
-        <form action="" class="mt-12 flex flex-col">
-          <form-input v-model:text="email_input">
+        <form @submit.prevent="login" action="" class="mt-12 flex flex-col">
+          <form-input v-model:text="email_input" :error="errors.email">
             <template #label>
               Email
             </template>
@@ -32,7 +79,7 @@ const is_remember    = ref(false)
             </template>
           </form-input>
 
-          <formInput class="mt-5" v-model:text="password_input" type="password">
+          <formInput class="mt-5" v-model:text="password_input" type="password" :error="errors.password">
             <template #label>
               Password
             </template>
@@ -49,7 +96,12 @@ const is_remember    = ref(false)
             <a href="#" class="text-sm text-blue-500 font-semibold">Recovery Password</a>
           </div>
 
-          <button class="mt-12 bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded font-semibold">Login</button>
+          <button type="submit" class="mt-12 bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded font-semibold flex justify-center">
+            <span v-show="!loading">Login</span>
+            <span v-show="loading" class="icon w-6 animate-spin">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"></path></svg>
+            </span>
+          </button>
           <button class="mt-4 flex items-center justify-center space-x-2 border bg-white hover:bg-gray-200 px-6 py-2 rounded font-semibold text-gray-500">
             <div class="icon text-red-600">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path></svg>

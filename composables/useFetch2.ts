@@ -1,11 +1,71 @@
 import { useUserStore } from "~/stores/user";
+import type { NitroFetchRequest } from 'nitropack'
 
-export const useFetch2 = async (request, opt?) => {  
-  return useState('foo', () => 'bar')
+declare type Fetch = typeof globalThis.fetch;
+declare type RequestInfo = globalThis.RequestInfo;
+declare type RequestInit = globalThis.RequestInit;
+declare type Response = globalThis.Response;
+
+interface ResponseMap {
+  blob: Blob;
+  text: string;
+  arrayBuffer: ArrayBuffer;
+  stream: ReadableStream<Uint8Array>;
+}
+declare type ResponseType = keyof ResponseMap | 'json';
+declare type MappedType<R extends ResponseType, JsonType = any> = R extends keyof ResponseMap ? ResponseMap[R] : JsonType;
+
+interface CreateFetchOptions {
+  defaults?: FetchOptions;
+  fetch: Fetch;
+  Headers: typeof Headers;
+}
+declare type FetchRequest = RequestInfo;
+interface FetchResponse<T> extends Response {
+  _data?: T;
+}
+interface SearchParams {
+  [key: string]: any;
+}
+interface FetchContext<T = any, R extends ResponseType = ResponseType> {
+  request: FetchRequest;
+  options: FetchOptions<R>;
+  response?: FetchResponse<T>;
+  error?: Error;
+}
+interface FetchOptions<R extends ResponseType = ResponseType> extends Omit<RequestInit, 'body'> {
+  baseURL?: string;
+  body?: RequestInit['body'] | Record<string, any>;
+  params?: SearchParams;
+  query?: SearchParams;
+  parseResponse?: (responseText: string) => any;
+  responseType?: R;
+  response?: boolean;
+  retry?: number | false;
+  onRequest?(ctx: FetchContext): Promise<void>;
+  onRequestError?(ctx: FetchContext & {
+    error: Error;
+  }): Promise<void>;
+  onResponse?(ctx: FetchContext & {
+    response: FetchResponse<R>;
+  }): Promise<void>;
+  onResponseError?(ctx: FetchContext & {
+    response: FetchResponse<R>;
+  }): Promise<void>;
 }
 
-export const useAPIClient = (request, opt?) => {
-  const doRequest = async (request, opt?) => {
+const refreshToken = async () => {
+  try {
+    return await $fetch('/api/auth/refresh-token', {
+      method: 'post',
+    })
+  } catch (requestError) {
+    throw requestError
+  }
+}
+
+export const Fetch2 = async (request: NitroFetchRequest, opt?: FetchOptions<ResponseType>) => {
+  // const doRequest = async (request, opt = undefined) => {
     // const { authClient, refreshSession, invalidateSession } = useAuthProxyClient()
     // const client = authClient.create({ baseURL: <our API url> })
   
@@ -22,31 +82,27 @@ export const useAPIClient = (request, opt?) => {
     
     try {
       return await $fetch(request, opt)
-        .catch(requestError => {
-          requestError.data
-        })
     } catch (requestError) {
-      const refresh_token = useCookie('refresh_token')
+      // const refresh_token = useCookie('refresh_token')
       
-      if (!requestError.response?.status === 401 || !refresh_token) {
+      if (requestError.response?.status === 401) {
         // Legitimate 4xx-5xx error, abort
         throw requestError
       }
       
       try {
-        await refreshSession(refreshToken)
+        await refreshToken()
         // call function recursively after refreshSession has done a request to /api/oauth/refresh API route and updated the cookie
-        return await doRequest(method, endpoint, config)
+        return await $fetch(request, opt)
       } catch (refreshError) {
-        await invalidateSession()
-        await navigateTo('/login')
+        throw refreshError
       }
     }
-  }
+  // }
   
-  return {
-    doRequest(request, opt)
-  }
+  // return {
+  //   doRequest(request, opt)
+  // }
 }
 
 // export const useAuthProxyClient = () => {

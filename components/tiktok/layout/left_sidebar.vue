@@ -1,8 +1,10 @@
 <script lang="ts" setup>
   import Scrollbar from 'smooth-scrollbar';
   import { useModalStore } from "~/stores/tiktok/modal";
+  import { useUserStore } from '~~/stores/user';
 
   const modalStore = useModalStore()
+  const userStore = useUserStore()
 
   const { data: accounts } = await useFetch(`/api/tiktok/users`)
 
@@ -63,7 +65,7 @@
         </div>
 
         <!-- user -->
-        <div class="py-6 border-y ml-4 mt-2">
+        <div v-show="!userStore.isLogin" class="py-6 border-y ml-4 mt-2">
           <p class="text-gray-500">Log in to follow creators, like videos, and view comments.</p>
           <button class="block w-full mt-4 border border-rose-500 rounded text-rose-500 hover:bg-rose-200 py-2.5 px-4 font-medium">Login</button>
         </div>

@@ -33,7 +33,7 @@
     <div class="flex items-start space-x-4">
       <a href="#" class="w-16 h-16 rounded-full border overflow-hidden">
         <img
-          src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/60d92c57e49e87ca9bc65cdb57c48b5c~c5_100x100.jpeg?x-expires=1664618400&x-signature=Rm5P%2Fr748Ard1foiieBuRlZivt4%3D"
+          src="/api/storage/images/rose.png"
           alt="" class="w-full h-full object-cover">
       </a>
 

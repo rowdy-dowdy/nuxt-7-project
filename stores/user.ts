@@ -1,18 +1,23 @@
 // stores/counter.js
 import { defineStore, skipHydrate } from 'pinia'
-import { useLocalStorage } from '@vueuse/core'
+// import { useLocalStorage } from '@vueuse/core'
+
+type UserInfo = {
+  id: number
+  username: string
+}
 
 export const useUserStore = defineStore('user', () => {
-  const user = useLocalStorage<any>('pinia/user', null)
+  const user = ref<UserInfo | null>(null)
 
-  const changeUser = (data: any) => {
+  const changeUser = (data) => {
     user.value = data
   }
 
   const isLogin = computed(() => user.value != null)
 
   return {
-    user : skipHydrate(user),
+    user : user,
     isLogin,
     changeUser
   }

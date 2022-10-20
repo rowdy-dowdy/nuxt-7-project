@@ -11,6 +11,25 @@
     @apply text-[#444];
   }
 
+  /* Change the white to any color */
+  @-webkit-keyframes autofill {
+    0%,100% {
+      color: #666;
+      background: transparent;
+    }
+  }
+
+  input:-webkit-autofill {
+    -webkit-animation-delay: 1s;
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+  }
+
+  /*Change text in autofill textbox*/
+  /* input:-webkit-autofill{
+    -webkit-text-fill-color: rgba(217, 119, 6) !important;
+  } */
+
 }
 
 @layer components {
@@ -37,5 +56,9 @@
 @layer utilities {
   .blog-btn-r {
     @apply bg-gradient-to-r bg-[length:200%_auto] hover:bg-right;
+  }
+
+  .bg-0 {
+    background: transparent;
   }
 }
