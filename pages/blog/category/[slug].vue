@@ -10,7 +10,7 @@
   // console.log(route.params.slug)
   const { data: posts } = await useFetch('/api/blog/posts')
   
-  const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
+  const format_time = (date: number) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
   var tags = ref(['Audio', 'Content', 'Feature', 'Image', 'Inspiration', 'Lifestyle', 'Photo', 'Pick', 'Slide', 'Trending'])
 

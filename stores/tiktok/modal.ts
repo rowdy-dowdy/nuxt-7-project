@@ -15,13 +15,13 @@ export const useModalStore = defineStore('tiktok_modal', () => {
   const user = ref({
     show: false,
     wait: false,
-    x: null as number,
-    y: null as number,
+    x: null as unknown as number,
+    y: null as unknown as number,
     info: null
   })
 
-  var show_timeout = null
-  var hide_timeout = null
+  var show_timeout: ReturnType<typeof setTimeout>
+  var hide_timeout: ReturnType<typeof setTimeout>
 
   const showModalUser = ({el, id}: {el:HTMLElement | null, id: number | null}) => {
     user.value.wait = true

@@ -101,12 +101,12 @@ const is_full_container = computed(() => route.fullPath.split('/')[2] == 'upload
             <span>Upload</span>
           </button>
 
-          <button v-show="!userStore.isLogin" class="bg-rose-500 hover:bg-rose-400 text-white px-8 py-2 rounded">Login</button>
+          <RouterLink v-show="!userStore.isLogin" :to="`/auth/login?redirect_url=${$route.path}`" class="bg-rose-500 hover:bg-rose-400 text-white px-8 py-2 rounded">Login</RouterLink>
 
           <div class="relative" v-click-outside="() => more_modal = false">
             <span class="icon p-2 cursor-pointer" @click="more_modal = true">
               <svg v-show="!userStore.isLogin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
-              <img v-if="userStore.isLogin" :src="userStore.user.image" :alt="userStore.user.name">
+              <img v-if="userStore.isLogin" :src="userStore.user.image" :alt="userStore.user.name" class="w-8 h-8 rounded-full">
             </span>
 
             <Transition name="modal">
@@ -133,11 +133,11 @@ const is_full_container = computed(() => route.fullPath.split('/')[2] == 'upload
                     <span class="truncate">Keyboard shortcut</span>
                   </a>
 
-                  <a v-show="!userStore.isLogin" href="#" class="flex items-center space-x-2 py-2 px-4 hover:bg-gray-100 border-t">
+                  <a v-show="userStore.isLogin" href="#" class="flex items-center space-x-2 py-2 px-4 hover:bg-gray-100 border-t">
                     <span class="flex-none icon w-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><circle cx="12" cy="6" r="2"></circle><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="12" r="2"></circle><circle cx="12" cy="18" r="2"></circle></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path><path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"></path></svg>
                     </span>
-                    <span class="truncate">Keyboard shortcut</span>
+                    <span class="truncate">Logout</span>
                   </a>
                 </div>
               </div>

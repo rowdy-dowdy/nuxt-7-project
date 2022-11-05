@@ -19,7 +19,7 @@ export const useModalStore = defineStore('blog_modal', {
       
       document.body.style.overflow = show ? 'hidden' : 'initial'
     },
-    toggleSearch(value = undefined) {
+    toggleSearch(value?: boolean) {
       let show = value != undefined ? value : !this.search
       this.overplay = show
       this.search = show

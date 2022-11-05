@@ -54,10 +54,13 @@ interface FetchOptions<R extends ResponseType = ResponseType> extends Omit<Reque
   }): Promise<void>;
 }
 
-const refreshToken = async () => {
+const refreshToken = async (refresh_token?: string) => {
   try {
     return await $fetch('/api/auth/refresh-token', {
       method: 'post',
+      body: {
+        refresh_token
+      }
     })
   } catch (requestError) {
     throw requestError
@@ -69,59 +72,36 @@ export const Fetch2 = async (request: NitroFetchRequest, opt?: FetchOptions<Resp
     // const { authClient, refreshSession, invalidateSession } = useAuthProxyClient()
     // const client = authClient.create({ baseURL: <our API url> })
   
-    const token = useCookie('token')
     const userStore = useUserStore()
+    const token = useCookie('token').value || userStore.token
   
-    if (token.value) {
+    if (token) {
       opt = { ...opt,
         headers: {
           ...opt?.headers,
-          'Authorization': `Bearer ${token.value}` }
+          'Authorization': `Bearer ${token}` }
         }
     }
     
     try {
       return await $fetch(request, opt)
-    } catch (requestError) {
-      // const refresh_token = useCookie('refresh_token')
+    } catch (requestError: any) {
+
+      // const refresh_token = useCookie('refresh_token').value || userStore.refresh_token
       
-      if (requestError.response?.status === 401) {
-        // Legitimate 4xx-5xx error, abort
+      console.log(useCookie('refresh_token'))
+      if (requestError.response?.status !== 401) {
         throw requestError
       }
-      
+
       try {
-        await refreshToken()
-        // call function recursively after refreshSession has done a request to /api/oauth/refresh API route and updated the cookie
+        const res = await refreshToken()
+        userStore.token = res.token
+        userStore.refresh_token = res.refresh_token
+
         return await $fetch(request, opt)
       } catch (refreshError) {
         throw refreshError
       }
     }
-  // }
-  
-  // return {
-  //   doRequest(request, opt)
-  // }
 }
-
-// export const useAuthProxyClient = () => {
-//   const authClient = $fetch.create({ retry: 0 })
-//   const authCookie = useCookie('auth')
-  
-//   const refreshSession = async refreshToken => 
-//     authClient('/api/oauth/refresh', { method: 'post', body: { refreshToken, ... } })
-//       .then(response => {
-//         return { <access and refresh token values from response> }
-//       })
-//       .then(tokens => { authCookie.value = tokens })
-//   const invalidateSession = async () => 
-//     authClient('/api/oauth/revoke', { method: 'post', body: { ... } })
-//       .then(() => { // ignore errors })
-  
-//   return {
-//     authClient,
-//     refreshSession,
-//     invalidateSession
-//   }
-// }

@@ -9,9 +9,16 @@
 
   // const route = useRoute()
   // console.log(route.params.slug)=
-  const { data: post } = await useFetch(`/api/blog/posts/slug`)
+  const { data: post, error } = await useFetch(`/api/blog/posts/slug`)
+
+  if (error.value) {
+    throw createError({
+      statusCode: 404,
+      message: 'not found',
+    })  
+  }
   
-  const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
+  const format_time = (date: number) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
   var tags = ref(['Audio', 'Content', 'Feature', 'Image', 'Inspiration', 'Lifestyle', 'Photo', 'Pick', 'Slide', 'Trending'])
 
@@ -55,7 +62,7 @@
     <BlogLayoutContainer>
       <div class="flex flex-wrap -mx-4">
         <div class="w-full lg:w-2/3 px-4">
-          <section class="py-6">
+          <section v-if="post" class="py-6">
             <h1 class="text-xl sm:text-3xl md:text-4xl font-semibold color-2">{{post.title}}</h1>
             <div class="flex items-center space-x-4 text-sm my-4">
               <a href="#"><img src="~/assets/img/rose.png" alt="Rose" class="w-8 h-8 rounded-full object-cover"></a>
@@ -87,12 +94,12 @@
               </div>
 
               <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-10">
+              <div class="swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
                 <span class="icon w-8 h-8 md:w-12 md:h-12 rounded-full bg-gray-200 hover:bg-white hover:text-rose-500 p-1 cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
                 </span>
               </div>
-              <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-10">
+              <div class="swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
                 <span class="icon w-8 h-8 md:w-12 md:h-12 rounded-full bg-gray-200 hover:bg-white hover:text-rose-500 p-1 cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
                 </span>

@@ -21,7 +21,7 @@ const updateText = (event: Event) => {
 }
 
 const focus = ref(false)
-const input = ref<HTMLInputElement>(null)
+const input = ref<HTMLInputElement | null>(null)
 
 const clickFocus = () => {
   if (input.value)
@@ -51,7 +51,7 @@ onMounted(() => {
         ref="input"
         :type="type"
         class="flex-grow min-w-0 bg-0 font-medium"
-        :style="!focus && '--bg-input: rgb(249 250 251)'"
+        :style="!focus ? '--bg-input: rgb(249 250 251)' : ''"
         @input="updateText"
         :value="text"
         @focus="focus = true"

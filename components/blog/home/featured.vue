@@ -15,7 +15,7 @@
     tab.value = v
   }
 
-  const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
+  const format_time = (date: number) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
   const { data: posts } = await useFetch('/api/blog/posts')
 </script>
@@ -59,17 +59,19 @@
           </div>
           <div class="flex-grow min-h-0 relative mt-10">
             <div class="flex flex-col space-y-4">
-              <div v-for="item in posts.slice(0,4)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
-                <RouterLink to="/blog/posts/1" class="flex-none w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden">
-                  <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
-                </RouterLink>
-                <div class="flex-grow min-w-0">
-                  <h3 class="font-semibold color-2 transition-all duration-300 hover:!text-rose-500">
-                    <RouterLink to="/blog/posts/1">{{item.title}}</RouterLink>
-                  </h3>
-                  <p class="mt-2 text-sm">{{format_time(item.created_at)}}</p>
+              <template v-if="posts">
+                <div v-for="item in posts.slice(0,4)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
+                  <RouterLink to="/blog/posts/1" class="flex-none w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden">
+                    <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
+                  </RouterLink>
+                  <div class="flex-grow min-w-0">
+                    <h3 class="font-semibold color-2 transition-all duration-300 hover:!text-rose-500">
+                      <RouterLink to="/blog/posts/1">{{item.title}}</RouterLink>
+                    </h3>
+                    <p class="mt-2 text-sm">{{format_time(item.created_at)}}</p>
+                  </div>
                 </div>
-              </div>
+              </template>
             </div>
             <div class="absolute w-full h-full top-0 left-0 bg-white/70 grid invisible pointer-events-none opacity-0 transition-all place-items-center"
               :class="{'!visible !pointer-events-auto !opacity-100': loading}">

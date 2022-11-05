@@ -6,7 +6,7 @@
   // console.log(route.params.slug)=
   const { data: posts } = await useFetch(`/api/blog/posts`)
   
-  const format_time = (date) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
+  const format_time = (date: number) => new Date(date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric'})
 
   var tags = ref(['Audio', 'Content', 'Feature', 'Image', 'Inspiration', 'Lifestyle', 'Photo', 'Pick', 'Slide', 'Trending'])
 
@@ -74,22 +74,24 @@
         </h2>
 
         <div class="flex flex-col space-y-4 mt-12">
-          <div v-for="item, index in posts.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
-            <div class="flex-none w-14 h-14 relative">
-              <RouterLink :to="`/blog/posts/` + item.slug" class="block w-full h-full sm:w-16 sm:h-16 rounded-full overflow-hidden">
-                <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
-              </RouterLink>
-              <span class="absolute left-0 -top-2">
-                <span class="icon w-7 h-7 border-2 border-white rounded-full bg-gradient-to-b from-rose-300 via-rose-500 to-rose-300 bg-[length:auto_200%] text-white p-0.5 text-sm font-semibold grid place-items-center">{{index+1}}</span>
-              </span>
+          <template v-if="posts">
+            <div v-for="item, index in posts.slice(0, 3)" :key="item.id" class="flex space-x-4 pb-4 border-b last-of-type:border-0 border-gradient">
+              <div class="flex-none w-14 h-14 relative">
+                <RouterLink :to="`/blog/posts/` + item.slug" class="block w-full h-full sm:w-16 sm:h-16 rounded-full overflow-hidden">
+                  <img :src="item.image" alt="" class="w-full h-full object-cover transition-all duration-500 hover:scale-110">
+                </RouterLink>
+                <span class="absolute left-0 -top-2">
+                  <span class="icon w-7 h-7 border-2 border-white rounded-full bg-gradient-to-b from-rose-300 via-rose-500 to-rose-300 bg-[length:auto_200%] text-white p-0.5 text-sm font-semibold grid place-items-center">{{index+1}}</span>
+                </span>
+              </div>
+              <div class="flex-grow min-w-0">
+                <h3 class="font-semibold color-2 transition-all duration-300 hover:!text-rose-500">
+                  <RouterLink :to="`/blog/posts/` + item.slug">{{item.title}}</RouterLink>
+                </h3>
+                <p class="mt-2 text-sm">{{format_time(item.created_at)}}</p>
+              </div>
             </div>
-            <div class="flex-grow min-w-0">
-              <h3 class="font-semibold color-2 transition-all duration-300 hover:!text-rose-500">
-                <RouterLink :to="`/blog/posts/` + item.slug">{{item.title}}</RouterLink>
-              </h3>
-              <p class="mt-2 text-sm">{{format_time(item.created_at)}}</p>
-            </div>
-          </div>
+          </template>
         </div>
       </div>
     </section>
@@ -192,25 +194,27 @@
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
               <!-- Slides -->
-              <div v-for="item in posts.slice(0,4)" :key="item.id" class="swiper-slide">
-                <div class="relative w-full" style="padding-bottom: 70%;">
-                  <RouterLink :to="`/blog/posts/` + item.slug" class="absolute block w-full h-full top-0 left-0 rounded-lg overflow-hidden">
-                    <img :src="item.image" alt=""
-                        class="block w-full h-full object-cover transition-all duration-500 hover:scale-110">
-                  </RouterLink>
-                  <div class="absolute top-4 left-4">
-                    <a href="#" class="blog-btn blog-btn-r py-1 px-3 text-sm">{{item.category}}</a>
+              <template v-if="posts">
+                <div v-for="item in posts.slice(0,4)" :key="item.id" class="swiper-slide">
+                  <div class="relative w-full" style="padding-bottom: 70%;">
+                    <RouterLink :to="`/blog/posts/` + item.slug" class="absolute block w-full h-full top-0 left-0 rounded-lg overflow-hidden">
+                      <img :src="item.image" alt=""
+                          class="block w-full h-full object-cover transition-all duration-500 hover:scale-110">
+                    </RouterLink>
+                    <div class="absolute top-4 left-4">
+                      <a href="#" class="blog-btn blog-btn-r py-1 px-3 text-sm">{{item.category}}</a>
+                    </div>
+                  </div>
+                  <h3 class="mt-4 text-lg sm:text-xl font-semibold color-2 hover:text-rose-400">
+                    <RouterLink :to="`/blog/posts/` + item.slug">{{item.title}}</RouterLink>
+                  </h3>
+                  <div class="mt-2 flex space-x-4 items-center text-sm">
+                    <a href="#" class="hover:text-rose-400">{{item.author}}</a>
+                    <span class="w-1 h-1 rounded-full bg-current"></span>
+                    <span>{{format_time(item.created_at)}}</span>
                   </div>
                 </div>
-                <h3 class="mt-4 text-lg sm:text-xl font-semibold color-2 hover:text-rose-400">
-                  <RouterLink :to="`/blog/posts/` + item.slug">{{item.title}}</RouterLink>
-                </h3>
-                <div class="mt-2 flex space-x-4 items-center text-sm">
-                  <a href="#" class="hover:text-rose-400">{{item.author}}</a>
-                  <span class="w-1 h-1 rounded-full bg-current"></span>
-                  <span>{{format_time(item.created_at)}}</span>
-                </div>
-              </div>
+              </template>
             </div>
 
             <!-- If we need navigation buttons -->

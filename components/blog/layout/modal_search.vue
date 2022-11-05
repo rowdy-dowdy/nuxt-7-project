@@ -3,7 +3,7 @@
 
   const modalStoreStore = useModalStore()
 
-  const closeModalSearch = (e) => {
+  const closeModalSearch = (e: KeyboardEvent) => {
     if (e.key == "Escape" && modalStoreStore.search) {
       // console.log(modalStoreStore.search)
       modalStoreStore.toggleSearch(false)

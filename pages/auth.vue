@@ -45,7 +45,7 @@ definePageMeta({
 <style>
   .auth-enter-active,
   .auth-leave-active {
-    @apply transition-all duration-1000;
+    @apply transition-all duration-1000 transform;
   }
   
   .auth-enter-active  
@@ -60,19 +60,19 @@ definePageMeta({
 
   /* left */
   .auth-enter-from .left {
-    @apply transition-all duration-1000 -translate-x-full;
+    @apply transition-all duration-1000 transform -translate-x-full;
   }
 
   .auth-enter-to .left {
-    @apply transition-all duration-1000 translate-x-0;
+    @apply transition-all duration-1000 transform translate-x-0;
   }
 
   /* right */
   .auth-enter-from .right {
-    @apply transition-all duration-1000 translate-x-full;
+    @apply transition-all duration-1000 transform translate-x-full;
   }
 
   .auth-enter-to .right {
-    @apply transition-all duration-1000 translate-x-0;
+    @apply transition-all duration-1000 transform translate-x-0;
   }
 </style>

@@ -5,12 +5,13 @@ import { verifyToken } from '~/utils/jwt'
 
 export default defineEventHandler(async (event) => {
   try {
-    const refresh_token = getCookie(event, 'refresh_token') || null
+    const body = await readBody(event)
+    const refresh_token = getCookie(event, 'refresh_token') || body.refresh_token ||null
 
     var decoded = null
 
     if (refresh_token) {
-      decoded = verifyToken(refresh_token);
+      decoded = await verifyToken(refresh_token);
     }
 
     if (!decoded) {

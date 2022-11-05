@@ -6,7 +6,7 @@ import { useVideoStore } from "~/stores/tiktok/video";
 export const useTiktokStore = defineStore('tiktok', () => {
   const videoStore = useVideoStore()
 
-  var timeout = null
+  var timeout: ReturnType<typeof setTimeout>
 
   const defaultObserver = () => {
     var temp_observer = ref<IntersectionObserver | null>(null)
@@ -25,8 +25,8 @@ export const useTiktokStore = defineStore('tiktok', () => {
               if (video_item) {
                 let src = video_item.dataset.src
                 if (!video_item.src)
-                  video_item.src = src
-                videoStore.video_playing = src
+                  video_item.src = src || ""
+                videoStore.video_playing = src || ""
               }
               
             }, 300);

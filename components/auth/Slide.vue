@@ -6,7 +6,7 @@
   Swiper.use([Pagination,Autoplay]);
 
   var swiper = null
-  var ref_swiper = ref<HTMLElement>(null)
+  var ref_swiper = ref<HTMLElement | null>(null)
 
   onMounted(() => {
     if (ref_swiper.value) {
@@ -24,17 +24,17 @@
 
   const list_slide = ref([
     {
-      image       : '/assets/images/home_slide_1.png' ,
+      image       : '/_nuxt/assets/images/home_slide_1.png' ,
       title       : 'Change the quality of the life' ,
       description : 'Lorem ipsum dolor sit amet consec tetur adipisicing elit.'
     },
     {
-      image       : '/assets/images/home_slide_2.png' ,
+      image       : '/_nuxt/assets/images/home_slide_2.png' ,
       title       : 'Change the quality of the life' ,
       description : 'Lorem ipsum dolor sit amet consec tetur adipisicing elit.'
     },
     {
-      image       : '/assets/images/home_slide_3.png' ,
+      image       : '/_nuxt/assets/images/home_slide_3.png' ,
       title       : 'Change the quality of the life' ,
       description : 'Lorem ipsum dolor sit amet consec tetur adipisicing elit.'
     },

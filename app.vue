@@ -1,21 +1,41 @@
 <script lang="ts" setup>
-  useHead({
-    title: 'Việt Hùng - 7 Project',
-    // or, instead:
-    // titleTemplate: (title) => `My App - ${title}`,
-    viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-    charset: 'utf-8',
-    meta: [
-      { name: 'description', content: 'My 7 front end web projects' }
-    ]
-  })
+import { client } from 'process';
+import { useUserStore } from './stores/user';
+
+useHead({
+  title: 'Việt Hùng - 7 Project',
+  // or, instead:
+  // titleTemplate: (title) => `My App - ${title}`,
+  // viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  // charset: 'utf-8',
+  meta: [
+    { name: 'description', content: 'My 7 front end web projects' }
+  ]
+})
+
+// const { data: user } = await useFetch('/api/auth/me')
+// console.log(user.value)
+const loading = ref(true)
+if (process.client) {
+  try {
+    const { user } = await Fetch2('/api/auth/me')
+
+    const userStore = useUserStore()
+    userStore.changeUser(user)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
-  <NuxtLayout>
+  <RootLoading v-if="loading" />
+  <LazyNuxtLayout v-else>
     <NuxtLoadingIndicator />
     <NuxtPage />
-  </NuxtLayout>
+  </LazyNuxtLayout>
 </template>
 
 <style>

@@ -27,9 +27,9 @@ const login = async () => {
     const { user } = await $fetch('/api/auth/login', {
       method: 'post',
       body: {
-        email: email_input,
-        password: password_input,
-        remember: is_remember
+        email: email_input.value,
+        password: password_input.value,
+        remember: is_remember.value
       }
     })
 

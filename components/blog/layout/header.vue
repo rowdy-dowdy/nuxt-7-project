@@ -17,7 +17,7 @@
       if (header_down.value) {
         header.value.style.height = header_height.value + 'px'
       } else {
-        header.value.style.height = null
+        header.value.style.removeProperty("height")
       }
     }
   }
@@ -217,6 +217,10 @@
   }
 
   .button-icon {
-    @apply icon w-10 h-10 rounded-full bg-gradient-to-b from-rose-300 via-rose-500 to-rose-300 bg-[length:auto_200%] hover:bg-[bottom_center] text-white p-2.5 shadow transition-all duration-300;
+    @apply block w-10 h-10 rounded-full bg-gradient-to-b from-rose-300 via-rose-500 to-rose-300 bg-[length:auto_200%] hover:bg-[bottom_center] text-white p-2.5 shadow transition-all duration-300;
+  }
+
+  .button-icon svg {
+    @apply w-full h-full !fill-current;
   }
 </style>

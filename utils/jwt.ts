@@ -1,18 +1,14 @@
 import jwt from "jsonwebtoken"
-const token_key = process.env.TOKEN_KEY
+const token_key = process.env.TOKEN_KEY || ""
 
-const verifyToken = async (token: string) => {
+const verifyToken = (token: string) => {
   try {
-    const user : any = await jwt.verify(token, token_key);
+    const decode : any = jwt.verify(token, token_key);
 
-    return user
-
+    return decode
+    
   } catch (err) {
     return null
-    throw {
-      status: 401,
-      text: "Invalid Token"
-    }
   }
 };
 

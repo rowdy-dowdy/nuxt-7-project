@@ -6,7 +6,7 @@ const menu = ref(data_menu)
 </script>
 
 <template>
-  <div class="fixed left-0 top-0 bottom-0 transition-all duration-300 z-[9999]" :class="{'-translate-x-full': !show}">
+  <div class="fixed left-0 top-0 bottom-0 transition-all duration-300 transform" :class="{'-translate-x-full': !show}" style="z-index: 999999;">
     <div class="relative h-full bg-gray-900 py-4 flex flex-col space-y-4 items-center z-10">
       <div class="flex-grow flex flex-col space-y-4 px-2 overflow-y-auto">
         <NuxtLink to="/" class="bg-purple-600 text-white rounded-lg cursor-pointer">
@@ -17,7 +17,7 @@ const menu = ref(data_menu)
 
         <span class="flex-none block w-full h-[1px] bg-white"></span>
 
-        <NuxtLink v-for="item in menu" :key="item.id" :to="item.link" class="bg-teal-600 text-white rounded-lg cursor-pointer">
+        <NuxtLink v-for="item in menu" :key="item.id" :to="item.link" class="bg-teal-600 text-white rounded-lg cursor-pointer" @click="show = false">
           <span class="icon w-12 h-12 p-2" v-html="item.svg">
           </span>
         </NuxtLink>
@@ -33,7 +33,7 @@ const menu = ref(data_menu)
       
     </div>
 
-    <div class="absolute left-full bottom-2 bg-gray-900 p-2 rounded-r-md transition-all duration-300"
+    <div class="absolute left-full bottom-2 bg-gray-900 p-2 rounded-r-md transition-all duration-300 transform"
       :class="{'-translate-x-full': show}"
     >
       <div class="w-6 h-6 bg-white rounded-lg cursor-pointer" @click="show = true">
