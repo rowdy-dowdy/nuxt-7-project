@@ -11,8 +11,16 @@ type TiktokUser = {
   confirmed: boolean;
 }
 
+type TiktokStore = {
+  show: boolean,
+  wait: boolean,
+  x: number,
+  y: number,
+  info: TiktokUser | null
+}
+
 export const useModalStore = defineStore('tiktok_modal', () => {
-  const user = ref({
+  const user = ref<TiktokStore>({
     show: false,
     wait: false,
     x: null as unknown as number,
@@ -31,7 +39,8 @@ export const useModalStore = defineStore('tiktok_modal', () => {
     show_timeout = setTimeout(async () => {
       if (!el || !user.value.wait) return
 
-      user.value.info = await $fetch(`/api/tiktok/users/${id}`)
+      const data = await $fetch(`/api/tiktok/users/${id}`)
+      user.value.info = data
       // if (user.value.wait) return
 
       let position = el.getBoundingClientRect()

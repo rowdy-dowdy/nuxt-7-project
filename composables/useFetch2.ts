@@ -89,7 +89,7 @@ export const Fetch2 = async (request: NitroFetchRequest, opt?: FetchOptions<Resp
 
       // const refresh_token = useCookie('refresh_token').value || userStore.refresh_token
       
-      console.log(useCookie('refresh_token'))
+      // console.log(useCookie('refresh_token'))
       if (requestError.response?.status !== 401) {
         throw requestError
       }

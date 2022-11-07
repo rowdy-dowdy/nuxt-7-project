@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
     const refresh_token = getCookie(event, 'refresh_token') || body.refresh_token ||null
+    // console.log(event.res)
 
     var decoded = null
 

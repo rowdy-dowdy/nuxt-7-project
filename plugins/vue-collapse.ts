@@ -1,5 +1,5 @@
 export default defineNuxtPlugin(nuxtApp => {
-  let timeoutids = [];
+  let timeoutids: any[] = [];
   nuxtApp.vueApp.directive("collapse", {
     mounted(el: HTMLInputElement | HTMLTextAreaElement, binding) {
       // el.transitionDuration = 350;
@@ -31,7 +31,7 @@ export default defineNuxtPlugin(nuxtApp => {
         el.style.display = 'block'
         let height = el.scrollHeight; // not scale
         let show = el.dataset.show || undefined
-        let node_id = parseInt(el.dataset.node_id)
+        let node_id = parseInt(el.dataset.node_id || "")
 
         // console.log(node_id,timeoutids )
 
@@ -42,7 +42,7 @@ export default defineNuxtPlugin(nuxtApp => {
             clearTimeout(timeoutids[node_id].time_show)
             el.style.height = height + 'px';
             timeoutids[node_id].time_show = setTimeout(function () {
-              el.style.height = null;
+              el.style.removeProperty("height")
               el.dataset.show = 'true'
             }, time)
             return
@@ -52,7 +52,7 @@ export default defineNuxtPlugin(nuxtApp => {
           setTimeout(function () {
             el.style.height = height + 'px';
             timeoutids[node_id].time_show = setTimeout(function () {
-              el.style.height = null;
+              el.style.removeProperty("height")
               el.dataset.show = 'true'
             }, time)
           }, 10);

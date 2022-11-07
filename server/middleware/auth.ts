@@ -1,6 +1,7 @@
 import { verifyToken } from '~/utils/jwt'
 
 export default defineEventHandler((event) => {
+  // console.log('middleware')
   let token = getCookie(event, 'token') || event.req.headers.authorization?.split(' ')[1] || null
   if (token) {
     const decoded = verifyToken(token);

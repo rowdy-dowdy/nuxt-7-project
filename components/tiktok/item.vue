@@ -19,7 +19,8 @@
   })
 
   const scrollToElement = () => {
-    item_ref.value.scrollIntoView({block: "center"});
+    if (item_ref.value)
+      item_ref.value.scrollIntoView({block: "center"});
   }
 
   onMounted(() => {

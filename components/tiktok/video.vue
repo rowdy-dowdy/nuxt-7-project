@@ -15,11 +15,12 @@
 
   const playing_video = ref(false)
   const togleVideo = (data = undefined) => {
+    if (!video.value) return
     // toggle video
     if (video.value.paused) {
       video.value.play();
       playing_video.value = true
-      videoStore.video_playing = props.path
+      videoStore.video_playing = props.path || ""
     }
     else {
       video.value.pause()
@@ -35,6 +36,8 @@
   })
 
   watch(video_playing, v => {
+    if (!video.value) return
+
     if (v != props.path && video.value) {
       video.value.pause()
     }
@@ -108,7 +111,7 @@
 
     <div class="absolute left-5 right-5 bottom-6 flex items-center justify-between text-white pointer-events-none">
       <span 
-        @click="togleVideo"
+        @click="togleVideo()"
         class="icon w-10 cursor-pointer transition-all duration-300 opacity-0 group-hover:opacity-100 pointer-events-auto">
         <svg v-if="!playing_video" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M7 6v12l10-6z"></path></svg>
         <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M8 7h3v10H8zm5 0h3v10h-3z"></path></svg>

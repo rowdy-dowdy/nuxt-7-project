@@ -15,23 +15,26 @@ useHead({
 
 // const { data: user } = await useFetch('/api/auth/me')
 // console.log(user.value)
-const loading = ref(true)
-if (process.client) {
-  try {
-    const { user } = await Fetch2('/api/auth/me')
+// console.log('app')
+const userStore = useUserStore()
+const loaded = userStore.loaded
+// if (process.client) {
+//   console.log('app client')
+//   try {
+//     const { user } = await Fetch2('/api/auth/me')
 
-    const userStore = useUserStore()
-    userStore.changeUser(user)
-  } catch (error) {
-    console.log(error)
-  } finally {
-    loading.value = false
-  }
-}
+//     const userStore = useUserStore()
+//     userStore.changeUser(user)
+//   } catch (error) {
+//     console.log(error)
+//   } finally {
+//     loading.value = false
+//   }
+// }
 </script>
 
 <template>
-  <RootLoading v-if="loading" />
+  <RootLoading v-if="loaded" />
   <LazyNuxtLayout v-else>
     <NuxtLoadingIndicator />
     <NuxtPage />

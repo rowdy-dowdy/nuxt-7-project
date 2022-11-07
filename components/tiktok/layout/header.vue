@@ -8,7 +8,7 @@ var more_modal = ref(false)
 
 const userStore = useUserStore()
 
-const search = async (text) => {
+const search = async (text: string) => {
   load_sesarch.value = true
   await new Promise((res, rej) => {
     setTimeout(() => {
@@ -19,7 +19,7 @@ const search = async (text) => {
   load_sesarch.value = false
 }
 
-var timeout = null
+var timeout: ReturnType<typeof setTimeout>
 watch(search_header, (v) => {
   clearTimeout(timeout)
 
@@ -106,7 +106,7 @@ const is_full_container = computed(() => route.fullPath.split('/')[2] == 'upload
           <div class="relative" v-click-outside="() => more_modal = false">
             <span class="icon p-2 cursor-pointer" @click="more_modal = true">
               <svg v-show="!userStore.isLogin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
-              <img v-if="userStore.isLogin" :src="userStore.user.image" :alt="userStore.user.name" class="w-8 h-8 rounded-full">
+              <img v-if="userStore.isLogin" :src="userStore.user?.image" :alt="userStore.user?.name" class="w-8 h-8 rounded-full">
             </span>
 
             <Transition name="modal">
