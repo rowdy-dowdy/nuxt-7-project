@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { client } from 'process';
-import { useUserStore } from './stores/user';
+// import { client } from 'process';
+// import { useUserStore } from './stores/user';
 
 useHead({
   title: 'Việt Hùng - 7 Project',
@@ -16,8 +16,8 @@ useHead({
 // const { data: user } = await useFetch('/api/auth/me')
 // console.log(user.value)
 // console.log('app')
-const userStore = useUserStore()
-const loaded = userStore.loaded
+// const userStore = useUserStore()
+// const loaded = userStore.loaded
 // if (process.client) {
 //   console.log('app client')
 //   try {
@@ -34,8 +34,8 @@ const loaded = userStore.loaded
 </script>
 
 <template>
-  <RootLoading v-if="loaded" />
-  <LazyNuxtLayout v-else>
+  <!-- <RootLoading v-if="loaded" /> -->
+  <LazyNuxtLayout>
     <NuxtLoadingIndicator />
     <NuxtPage />
   </LazyNuxtLayout>
