@@ -24,7 +24,7 @@ const login = async () => {
       password: ''
     }
 
-    const { user } = await $fetch('/api/auth/login', {
+    const { user } = await $fetch('/api/auth2/login', {
       method: 'post',
       body: {
         email: email_input.value,
@@ -37,7 +37,7 @@ const login = async () => {
     
     router.push({ path: route.query?.redirect_url as string || '/' })
 
-  } catch (error) {
+  } catch (error: any) {
     if (error.response?.status == 404) {
       errors.value.email = error.response?.statusText
     }

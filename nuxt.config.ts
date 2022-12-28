@@ -4,14 +4,15 @@ export default defineNuxtConfig({
     shim: false
   },
   modules: [
-    // '@nuxtjs/tailwindcss',
-    'nuxt-windicss',
+    '@nuxtjs/tailwindcss',
+    // 'nuxt-windicss',
     '@pinia/nuxt',
     '@vueuse/nuxt',
+    '@sidebase/nuxt-auth'
   ],
   css: [
-    'virtual:windi.css',
-    '@/assets/css/tailwind.css',
+    // 'virtual:windi.css',
+    // '@/assets/css/tailwind.css',
     // 'virtual:windi-devtools',
   ]
 })

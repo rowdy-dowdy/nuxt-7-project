@@ -1,5 +1,10 @@
 <script lang="ts" setup>
+import { useUserStore } from '~~/stores/user';
+const { status, data, signIn, signOut } = useSession()
 
+const userStore = useUserStore()
+
+userStore.changeUser(data.value)
 </script>
 
 <template>

@@ -1,34 +1,32 @@
 <script lang="ts" setup>
 import { useUserStore } from '~~/stores/user';
+const { status, data, signIn, signOut } = useSession()
 
-const userStore = useUserStore()
-const route = useRoute()
-const router = useRouter()
+const error_text = ref("")
+
 const onSubmit = async (e: Event) => {
   e.preventDefault();
 
-  try {
-    const { email, password } = Object.fromEntries(
-      new FormData(e.target as HTMLFormElement),
-    );
-    
-    const { user } = await $fetch('/api/auth/login', {
-      method: 'post',
-      body: JSON.stringify({
-        email: email,
-        password: password
-      }),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    })
+  error_text.value = ""
 
-    userStore.changeUser(user)
+  const { email, password } = Object.fromEntries(
+    new FormData(e.target as HTMLFormElement),
+  );
   
-    router.push({ path: route.query?.redirect_url as string || '/' })
-  } catch (error) {
-    console.log({error}) 
-  }
+  signIn('credentials', {
+    redirect: false,
+    email: email,
+    password: password,
+    callbackUrl: `${window.location.origin}/`,
+  })
+  .then(async ({ ok, error }) => {
+    if (ok) {
+      window.location.replace('/')
+    }
+    else {
+      error_text.value = error
+    }
+  })
 };
 </script>
 
@@ -36,26 +34,28 @@ const onSubmit = async (e: Event) => {
   <form
     class="mt-10 flex max-w-xl flex-col space-y-6"
     method="post"
-    action="/api/auth/callback/credentials"
+    action="/"
     @submit="onSubmit"
   >
-    <div class="flex flex-row-reverse rounded-md border border-gray-200 bg-gray-100 px-4 py-2.5 focus-within:border-blue-500 focus-within:bg-white">
+    <label for="email" class="flex flex-row-reverse rounded-md border border-gray-200 bg-gray-100 px-4 py-2.5 focus-within:border-blue-500 focus-within:bg-white">
       <input id="email" name="email" type="text" class="bg-0 peer min-w-0 flex-grow focus:text-gray-800" placeholder="Email" />
-      <label for="email" class="icon mr-3 w-6 flex-none text-gray-400 peer-focus:text-blue-500">
+      <div class="icon mr-3 w-6 flex-none text-gray-400 peer-focus:text-blue-500">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" >
           <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.7-8 5.334L4 8.7V6.297l8 5.333 8-5.333V8.7z"></path>
         </svg>
-      </label>
-    </div>
+      </div>
+    </label>
 
-    <div class="flex flex-row-reverse rounded-md border border-gray-200 bg-gray-100 px-4 py-2.5 focus-within:border-blue-500 focus-within:bg-white">
+    <label for="password" class="flex flex-row-reverse rounded-md border border-gray-200 bg-gray-100 px-4 py-2.5 focus-within:border-blue-500 focus-within:bg-white">
       <input id="password" type="password" name="password" class="bg-0 peer min-w-0 flex-grow focus:text-gray-800" placeholder="Password" />
-      <label for="password" class="icon mr-3 w-6 flex-none text-gray-400 peer-focus:text-blue-500" >
+      <div class="icon mr-3 w-6 flex-none text-gray-400 peer-focus:text-blue-500" >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" >
           <path d="M3.433 17.325 3.079 19.8a1 1 0 0 0 1.131 1.131l2.475-.354C7.06 20.524 8 18 8 18s.472.405.665.466c.412.13.813-.274.948-.684L10 16.01s.577.292.786.335c.266.055.524-.109.707-.293a.988.988 0 0 0 .241-.391L12 14.01s.675.187.906.214c.263.03.519-.104.707-.293l1.138-1.137a5.502 5.502 0 0 0 5.581-1.338 5.507 5.507 0 0 0 0-7.778 5.507 5.507 0 0 0-7.778 0 5.5 5.5 0 0 0-1.338 5.581l-7.501 7.5a.994.994 0 0 0-.282.566zM18.504 5.506a2.919 2.919 0 0 1 0 4.122l-4.122-4.122a2.919 2.919 0 0 1 4.122 0z"></path>
         </svg>
-      </label>
-    </div>
+      </div>
+    </label>
+
+    <div v-if="error_text != ''" class="text-sm text-red-600">* {{ error_text }}</div>
 
     <button class="rounded-md bg-indigo-500 px-4 py-2.5 text-white hover:bg-indigo-400">
       Continue
