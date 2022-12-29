@@ -44,7 +44,7 @@
 
   // value form
   var caption = ref('')
-  var caption_html = ref<HTMLElement>(null)
+  var caption_html = ref<HTMLElement | null>(null)
   const inputCaption = (e: KeyboardEvent | null, data = undefined) => {
     if (!caption_html.value) return
 

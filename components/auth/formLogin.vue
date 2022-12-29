@@ -3,6 +3,7 @@ import { useUserStore } from '~~/stores/user';
 const { status, data, signIn, signOut } = useSession()
 
 const error_text = ref("")
+const route = useRoute()
 
 const onSubmit = async (e: Event) => {
   e.preventDefault();
@@ -12,22 +13,34 @@ const onSubmit = async (e: Event) => {
   const { email, password } = Object.fromEntries(
     new FormData(e.target as HTMLFormElement),
   );
+
+  let redirect_url = route.query?.redirect_url as string || '/'
+  console.log(redirect_url)
   
   signIn('credentials', {
     redirect: false,
     email: email,
     password: password,
-    callbackUrl: `${window.location.origin}/`,
+    callbackUrl: `${window.location.origin}/${redirect_url}`,
   })
-  .then(async ({ ok, error }) => {
-    if (ok) {
+  .then(({ ok, error }) => {
+    console.log({ok, error})
+    if (!error) {
       window.location.replace('/')
+      // console.log({ok, error})
     }
     else {
       error_text.value = error
     }
   })
 };
+
+useHead({
+  title: 'Login',
+  meta: [
+    { name: 'description', content: 'Login by nuxt 7 project.' }
+  ],
+})
 </script>
 
 <template>

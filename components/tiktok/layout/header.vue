@@ -101,7 +101,7 @@ const is_full_container = computed(() => route.fullPath.split('/')[2] == 'upload
             <span>Upload</span>
           </button>
 
-          <RouterLink v-show="!userStore.isLogin" :to="`/auth/login?redirect_url=${$route.path}`" class="bg-rose-500 hover:bg-rose-400 text-white px-8 py-2 rounded">Login</RouterLink>
+          <RouterLink v-show="!userStore.isLogin" :to="`/auth2/login?redirect_url=${$route.path}`" class="bg-rose-500 hover:bg-rose-400 text-white px-8 py-2 rounded">Login</RouterLink>
 
           <div class="relative" v-click-outside="() => more_modal = false">
             <span class="icon p-2 cursor-pointer" @click="more_modal = true">

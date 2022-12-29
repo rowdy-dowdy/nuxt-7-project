@@ -67,7 +67,7 @@
         <!-- user -->
         <div v-show="!userStore.isLogin" class="py-6 border-y ml-4 mt-2">
           <p class="text-gray-500">Log in to follow creators, like videos, and view comments.</p>
-          <RouterLink :to="`/auth/login?redirect_url=${$route.path}`" class="block w-full mt-4 border border-rose-500 rounded text-rose-500 hover:bg-rose-200 py-2.5 px-4 font-medium">Login</RouterLink>
+          <RouterLink :to="`/auth2/login?redirect_url=${$route.path}`" class="block w-full mt-4 border border-rose-500 rounded text-rose-500 hover:bg-rose-200 py-2.5 px-4 font-medium">Login</RouterLink>
         </div>
 
         <!-- Suggested accounts -->
